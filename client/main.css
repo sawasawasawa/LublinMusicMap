@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css?family=Righteous');
+h1 {
+    font-family: Righteous;
+    text-shadow: 1px 1px white, 2px 2px lightgrey;
+}
+
+body {
+    margin: 0px;
+}
+
+header, .title {
+    position: fixed;
+    top:20px;
+    left:20px;
+    z-index: 2;
+}
+
+.title {
+    z-index: 3;
+}
+
+#header-background {
+    z-index: -1;
+}
+
+#header-background {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    transition: all 1s;
+}
+
+#header-background {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 256px;
+    height: 100vh;
+    background-color: #E6007E;
+    background-size: cover;
+    transition: 0.2s all linear;
+    -webkit-clip-path: polygon( 0% 0%, 0% 350px, 0% 350px, 0% 350px, 100% 0%);
+    clip-path: polygon( 0% 0%, 0% 350px, 0% 350px, 0% 350px, 100% 0%);
+}
+
+#header-background.elo, #header-background:hover {
+    /*transition: 1s all ease;*/
+    -webkit-animation: all 3s ease infinite;
+    -webkit-clip-path: polygon( 0% 0%, 0% 100%, 0% 100%, 100% 100%, 100% 0%);
+    clip-path: polygon( 0% 0%, 0% 100%, 0% 100%, 100% 100%, 100% 0%);
+}
+
+#main-container {
+    height:100vh;
+}
+
+.container {
+    height: 100%;
+}
+
+.bottomButton,
+.bottomButton > div {
+    position: fixed;
+    z-index: 2;
+    bottom: 28px;
+    left: 28px;
+    width: 200px !important;
+}
+
+#menu--items {
+    position: absolute;
+    bottom:0px;
+    width:100%;
+    padding-bottom: 80px;
+}

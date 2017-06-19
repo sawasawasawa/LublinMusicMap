@@ -1,0 +1,19 @@
+{
+  "name": "mml",
+  "private": true,
+  "scripts": {
+    "start": "meteor run"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.20.0",
+    "google-maps-react": "^1.0.19",
+    "lodash": "^4.17.4",
+    "material-ui": "^0.18.3",
+    "meteor-node-stubs": "~0.2.4",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-google-maps": "^6.3.0",
+    "react-helmet": "^5.1.3",
+    "react-tap-event-plugin": "^2.0.1"
+  }
+}
