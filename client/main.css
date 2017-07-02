@@ -1,53 +1,99 @@
-@import url('https://fonts.googleapis.com/css?family=Righteous');
-h1 {
-    font-family: Righteous;
-    text-shadow: 1px 1px white, 2px 2px lightgrey;
+/*@import url('https://fonts.googleapis.com/css?family=Righteous');*/
+@import url('https://fonts.googleapis.com/css?family=Ubuntu|Roboto|Rubik|Rubik+Mono+One');
+* {
+    font-family: Ubuntu;
 }
 
 body {
     margin: 0px;
 }
 
-header, .title {
+header {
     position: fixed;
-    top:20px;
-    left:20px;
+    top:-10px;
+    left:10px;
     z-index: 2;
 }
 
 .title {
+    position: fixed;
+    top:0px;
+    left:10px;
+    z-index: 2;
+    margin:0;
+}
+
+.title {
     z-index: 3;
+    font-family: Rubik Mono One;
+    font-size: 1.8em;
+    color: #EE3858;
+    /*text-shadow: 1px 1px white, 2px 2px lightgrey;*/
 }
 
-#header-background {
-    z-index: -1;
+.title-strong {
+    font-family: Rubik Mono One;
+    font-size: 1.5em;
+    text-decoration: underline;
+    color: #FDFAFC;
 }
 
-#header-background {
+#header-background, #header-background-shadow {
+    background: #313131;
+    transition: 0.2s all ease-in-out;
+    width: 512px;
     position: fixed;
-    top: 0px;
-    left: 0px;
-    transition: all 1s;
+    left: -200px;
+    height: 200vh;
+    -webkit-transform-origin: 100% 0%;
+    transformOrigin: 100% 0%;
+    transform: rotateZ(45deg);
 }
 
-#header-background {
+#legend-container {
     position: fixed;
-    top: 0px;
-    left: 0px;
-    width: 256px;
+    width: 296px;
     height: 100vh;
-    background-color: #E6007E;
-    background-size: cover;
-    transition: 0.2s all linear;
-    -webkit-clip-path: polygon( 0% 0%, 0% 350px, 0% 350px, 0% 350px, 100% 0%);
-    clip-path: polygon( 0% 0%, 0% 350px, 0% 350px, 0% 350px, 100% 0%);
+    right: 0px;
+    bottom:14px;
+    overflow: hidden;
 }
 
-#header-background.elo, #header-background:hover {
-    /*transition: 1s all ease;*/
-    -webkit-animation: all 3s ease infinite;
-    -webkit-clip-path: polygon( 0% 0%, 0% 100%, 0% 100%, 100% 100%, 100% 0%);
-    clip-path: polygon( 0% 0%, 0% 100%, 0% 100%, 100% 100%, 100% 0%);
+#legend-content {
+    position: fixed;
+    top: 140px;
+    left: -15px;
+    transform: rotateZ(-45deg);
+}
+
+#legend {
+    vertical-align: bottom;
+    text-align: right;
+    color: #FDFAFC;
+
+    background: #313131;
+    transition: 0.2s all ease-in-out;
+    width: 100%;
+    height: 100%;
+    bottom:0px;
+}
+
+.legend-title {
+    margin: 5px 5px 5px 0px;
+    font-family: "Rubik Mono One";
+    z-index: 3;
+    font-size: 1.2em;
+    text-decoration: underline;
+    color: #EE3858;
+}
+#legend div span {
+    margin-left:10px;
+    margin-right:5px;
+    vertical-align: super;
+}
+#legend div {
+    float: right;
+    margin-top:5px;
 }
 
 #main-container {
@@ -65,6 +111,7 @@ header, .title {
     bottom: 28px;
     left: 28px;
     width: 200px !important;
+    background-color: #EE3858;
 }
 
 #menu--items {
@@ -72,4 +119,32 @@ header, .title {
     bottom:0px;
     width:100%;
     padding-bottom: 80px;
+}
+
+.searchBox {
+    position: fixed !important;
+}
+
+
+.placesAutocomplete {
+    overflow: visible;
+    padding-right: 24px
+}
+
+
+/* INFOWINDOW */
+
+.gm-style-iw {
+    top: 0px !important;
+}
+
+.infowindow-title {
+    /*text-decoration: underline;*/
+    text-transform:  uppercase;
+    font-weight: 900;
+    font-family: "Rubik";
+}
+
+.rt-td h5 {
+    margin: 0
 }
