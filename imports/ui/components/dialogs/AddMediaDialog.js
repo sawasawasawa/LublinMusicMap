@@ -5,11 +5,11 @@ import RaisedButton from 'material-ui/RaisedButton';
 import {orange500, blue500} from 'material-ui/styles/colors';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import { Media } from '../api/media.js';
-import { Places } from '../api/places.js';
-import { Events } from '../api/events.js';
+import { Media } from '../../../api/media.js';
+import { Places } from '../../../api/places.js';
+import { Events } from '../../../api/events.js';
 import TextField from 'material-ui/TextField';
-
+import PlaceSelect from '../common/PlaceSelect';
 const styles = {
   floatingLabelStyle: {
     color: orange500,
@@ -19,7 +19,6 @@ const styles = {
     color: blue500,
   },
 };
-
 
 export default class AddMediaDialog extends React.Component {
   state = {
@@ -56,8 +55,8 @@ export default class AddMediaDialog extends React.Component {
     location.reload();
   }
 
-  handlePlaceChange = (event, index, placeId) => {
-    this.setState({placeId});
+  handlePlaceChange = (event, index, selectedPlace) => {
+    this.setState({selectedPlace});
   }
 
   handleEventChange = (event, index, eventId) => {
@@ -78,10 +77,6 @@ export default class AddMediaDialog extends React.Component {
   }
 
   render() {
-    const places = Places.find().fetch().map((place, index)=>{
-      return <MenuItem key={place._id} value={place._id} primaryText={place.name} />
-    });
-
     const events = Events.find({placeId: this.state.placeId}).fetch().map((event, index)=>{
       return <MenuItem key={event._id} value={event._id} primaryText={event.name} />
     });
@@ -117,15 +112,11 @@ export default class AddMediaDialog extends React.Component {
           style={{zIndex: 10}}
           autoScrollBodyContent={true}
         >
-          <SelectField
-            value={this.state.placeId}
-            onChange={this.handlePlaceChange}
-            floatingLabelText="Lokalizacja"
-            floatingLabelStyle={{color: orange500}}
-            maxHeight={400}
-          >
-            { places }
-          </SelectField>
+          <PlaceSelect
+            selectedPlace={this.state.selectedPlace}
+            handlePlaceChange={this.handlePlaceChange}
+            places={this.props.places}
+          />
           <br />
           <SelectField
             value={this.state.eventId}

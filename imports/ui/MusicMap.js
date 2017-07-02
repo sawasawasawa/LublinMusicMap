@@ -3,11 +3,11 @@ import {
   default as React,
   Component,
 } from "react";
-import {withGoogleMap, GoogleMap, Marker, InfoWindow} from "react-google-maps";
+import {withGoogleMap, GoogleMap} from "react-google-maps";
 import mapStylesMagenta from "../../client/mapStyles-magenta.json"
 import SearchBox from "react-google-maps/lib/places/SearchBox"; //TODO needed?
 import {Events} from '../api/events.js';
-import PlaceMarker from './PlaceMarker';
+import PlaceMarker from './components/common/PlaceMarker';
 
 const INPUT_STYLE = {
   boxSizing: `border-box`,
@@ -88,12 +88,20 @@ export default class MusicMap extends Component {
   handleCloseClick = this.handleCloseClick.bind(this);
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.markerType != this.state.markerType) {
-      if (nextProps.markerType == 'media') {
-        this.setState({ markers: this.props.media.map(this.addPosition), markerType: nextProps.markerType })
-      } else {
-        this.setState({ markers: this.props[nextProps.markerType], markerType: nextProps.markerType })
-      }
+    const changeMarkerView = nextProps.markerType !== this.state.markerType;
+    if (changeMarkerView) {
+      this.setState({
+        markers: this.prepareMarkers(nextProps.markerType),
+        markerType: nextProps.markerType
+      })
+    }
+  }
+
+  prepareMarkers(markerType) {
+    if (markerType == 'media') {
+      return this.props.media.map(this.addPosition)
+    } else {
+      return this.props.places
     }
   }
 

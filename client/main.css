@@ -145,6 +145,12 @@ header {
     font-family: "Rubik";
 }
 
+.rt-td * {
+    vertical-align: middle;
+    font-size: 1rem;
+    margin: 0px
+}
+
 .rt-td h5 {
-    margin: 0
+
 }

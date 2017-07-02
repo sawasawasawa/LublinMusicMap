@@ -3,12 +3,12 @@ import { render } from 'react-dom';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
-import AddNewPlaceDialog from './addNewPlaceDialog'
-import AddNewEventDialog from './addNewEventDialog'
-import AddMediaDialog from './AddMediaDialog'
-import AllMediaDialog from './AllMediaDialog'
-import AllEventsDialog from './AllEventsDialog'
-import CreditsDialog from './CreditsDialog'
+import AddNewPlaceDialog from './components/dialogs/AddPlaceDialog'
+import AddNewEventDialog from './components/dialogs/AddEventDialog'
+import AddMediaDialog from './components/dialogs/AddMediaDialog'
+import AllMediaDialog from './components/dialogs/AllMediaDialog'
+import AllEventsDialog from './components/dialogs/AllEventsDialog'
+import CreditsDialog from './components/dialogs/CreditsDialog'
 // import AddNewPlace from './AddNewPlace'
 
 export default class Menu extends Component {
@@ -40,12 +40,10 @@ export default class Menu extends Component {
   }
 
   toggleMarkersForPlaces = () => {
-    console.log('toggleMarkersForPlaces  ¯\_(ツ)_/¯: this.props', this.props);
     this.props.toggleMarkersFor('places')
   }
 
   toggleMarkersForMedia = () => {
-    // console.log('¯\_(ツ)_/¯: this.props', this.props);
     this.props.toggleMarkersFor('media')
   }
 
@@ -72,9 +70,9 @@ export default class Menu extends Component {
             <AllEventsDialog {...this.props}/>
             <AllMediaDialog {...this.props}/>
             <br />
-            <AddMediaDialog/>
-            <AddNewPlaceDialog/>
-            <AddNewEventDialog/>
+            <AddMediaDialog places={this.props.places}/>
+            <AddNewPlaceDialog places={this.props.places}/>
+            <AddNewEventDialog places={this.props.places}/>
             <br />
             <br />
             <CreditsDialog />
@@ -86,7 +84,6 @@ export default class Menu extends Component {
                         backgroundColor={"#EE3858"}
           />
         </Drawer>
-
       </div>
     );
   }

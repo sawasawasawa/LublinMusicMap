@@ -4,8 +4,8 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import {orange500, blue500} from 'material-ui/styles/colors';
-import {Media} from '../api/media.js';
-import {Events} from '../api/events.js';
+import {Media} from '../../../api/media.js';
+import {Events} from '../../../api/events.js';
 import YouTube from 'react-youtube';
 
 const styles = {
@@ -25,7 +25,7 @@ const opts = {
 };
 
 
-export default class EventModal extends React.Component {
+export default class EventDialog extends React.Component {
   state = {
     open: false,
   };
@@ -46,7 +46,7 @@ export default class EventModal extends React.Component {
         onTouchTap={this.handleClose}
       />,
     ];
-    const videos = Media.find({eventId: this.props.eventObject._id}).fetch();
+    const videos = this.props.eventMedia || [];
 
     return (
       <div ref="siema">

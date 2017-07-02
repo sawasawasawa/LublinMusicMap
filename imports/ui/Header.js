@@ -1,16 +1,10 @@
 import React, {Component} from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 import Paper from 'material-ui/Paper';
-import LegendElement from './LegendElement';
+import LegendElement from './components/common/LegendElement';
 
 export class Header extends Component {
   render() {
-    const style = {
-      height: 40,
-      width: 40,
-      padding: 2,
-      textAlign: 'center',
-    };
     const legendPaperStyle = {
       width: '256px',
       height: '512px',

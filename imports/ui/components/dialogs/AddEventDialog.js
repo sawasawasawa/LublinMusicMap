@@ -6,9 +6,11 @@ import TextField from 'material-ui/TextField';
 import {orange500, blue500} from 'material-ui/styles/colors';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import { Places } from '../api/places.js';
-import { Events } from '../api/events.js';
+import { Places } from '../../../api/places.js';
+import { Events } from '../../../api/events.js';
 import DatePicker from 'material-ui/DatePicker';
+import PlaceSelect from '../common/PlaceSelect';
+import TextInput from '../common/TextInput';
 
 const styles = {
   floatingLabelStyle: {
@@ -20,18 +22,17 @@ const styles = {
   },
 };
 
-export default class AddNewEventModal extends React.Component {
+export default class AddNewEventDialog extends React.Component {
   state = {
     open: false,
     selectedPlace: null,
   };
 
   handlePlaceChange = (event, index, selectedPlace) => {
-    //console.log('¯\_(ツ)_/¯: event, index, selectedPlace', event, index, selectedPlace);
     this.setState({selectedPlace});
   }
 
-  handleDateChange = (justNull, selectedDate) => {
+  handleDateChange = () => (justNull, selectedDate) => {
     //console.log('¯\_(ツ)_/¯: event, index, selectedDate', selectedDate);
     this.setState({selectedDate});
   }
@@ -77,9 +78,6 @@ export default class AddNewEventModal extends React.Component {
         onTouchTap={this.addEvent}
       />,
     ];
-    const places = Places.find().fetch().map((place, index)=>{
-      return <MenuItem key={place._id} value={place._id} primaryText={place.name} />
-    });
 
     return (
       <div>
@@ -93,40 +91,17 @@ export default class AddNewEventModal extends React.Component {
           style={{zIndex: 10}}
           autoScrollBodyContent={true}
         >
-          <TextField id="name_input"
-                     floatingLabelText="Nazwa"
-                     floatingLabelStyle={{...styles.floatingLabelStyle, multiLine: true}}
-                     floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
-                     onChange={this.onInputChange}
-          />
-          <br />
-          <SelectField
-            value={this.state.selectedPlace}
-            onChange={this.handlePlaceChange}
-            floatingLabelText="Lokalizacja"
-            floatingLabelStyle={{color: orange500}}
-            maxHeight={400}
-          >
-            { places }
-          </SelectField>
-          <br />
+          <TextInput inputId="name_input" inputLabel="Nazwa" onInputChange={this.onInputChange} /><br />
+          <PlaceSelect
+            selectedPlace={this.state.selectedPlace}
+            handlePlaceChange={this.handlePlaceChange}
+            places={this.props.places}
+          /><br />
           <DatePicker hintText="Data" onChange={this.handleDateChange}
                       textFieldStyle={{...styles.floatingLabelStyle}}
           />
-          <TextField id="fb_event_link_input"
-                     floatingLabelText="Link do wydarzenia na Facebook"
-                     floatingLabelStyle={{...styles.floatingLabelStyle, multiLine: true}}
-                     floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
-                     onChange={this.onInputChange}
-          />
-          <br />
-          <TextField id="description_input"
-                     floatingLabelText="Opis"
-                     floatingLabelStyle={{...styles.floatingLabelStyle, multiLine: true}}
-                     floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
-                     onChange={this.onInputChange}
-                     multiLine={true}
-          />
+          <TextInput inputId="fb_event_link_input" inputLabel="Link do wydarzenia na Facebook" onInputChange={this.onInputChange}/><br />
+          <TextInput inputiId="description_input" inputLabel="Opis" onInputChange={this.onInputChange} />
         </Dialog>
       </div>
     );
