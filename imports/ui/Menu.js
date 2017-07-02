@@ -48,6 +48,8 @@ export default class Menu extends Component {
   }
 
   render() {
+    const showPlaces = this.props.markerType == 'places';
+
     return (
       <div id="menu" className={'bottomButton'}>
         <RaisedButton
@@ -63,10 +65,13 @@ export default class Menu extends Component {
                   boxShadow: 0
                 }}>
           <div id="menu--items">
-            <RaisedButton label="Miejsca" onClick={this.toggleMarkersForPlaces}/><br />
-            <RaisedButton label="Nagrania" onClick={this.toggleMarkersForMedia}/><br />
-            <RaisedButton label="Filtruj..."/><br />
-            <RaisedButton label="O projekcie"/>
+            <RaisedButton
+              label="Na mapie wyświetlaj:"
+              backgroundColor="#E6007E"
+              labelColor="#fff"
+            />
+            <RaisedButton label={`Miejsca ${ showPlaces ? ' 👈': ''}`} onClick={this.toggleMarkersForPlaces} secondary={showPlaces}/><br />
+            <RaisedButton label={`Nagrania ${ !showPlaces ? ' 👈': ''}`}  onClick={this.toggleMarkersForMedia} secondary={!showPlaces}/><br /><br />
             <AllEventsDialog {...this.props}/>
             <AllMediaDialog {...this.props}/>
             <br />

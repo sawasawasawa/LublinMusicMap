@@ -64,7 +64,8 @@ const MusicMapGoogleMap = withGoogleMap(props => {
                               marker={marker}
                               onMarkerClick={() => props.onMarkerClick(marker)}
                               onCloseClick={() => props.onCloseClick(marker)}
-                              eventsAtPlace={Events.find({placeId: marker._id}).fetch()}
+                              mediaAtPlace={ props.media ? props.media.filter((e)=>{return e.placeId == marker._id}) : [] }
+                              eventsAtPlace={ props.events ? props.events.filter((e)=>{return e.placeId == marker._id}) : [] }
           />
         })
           : null}
@@ -173,6 +174,7 @@ export default class MusicMap extends Component {
 
                            </div>
                          }
+                         {...this.props}
                          onMapMounted={this.handleMapMounted}
                          onSearchBoxMounted={this.handleSearchBoxMounted}
                          bounds={this.state.bounds}
@@ -180,7 +182,6 @@ export default class MusicMap extends Component {
                          markers={this.state.markers}
                          onMarkerClick={this.handleMarkerClick}
                          onCloseClick={this.handleCloseClick}
-
       />
     );
   }

@@ -47,7 +47,7 @@ export class AppContent extends Component {
       {this.props.dataReady ?  (
           <div className="container">
             <Header />
-            <Menu {...this.props} toggleMarkersFor={this.toggleMarkersFor}/>
+            <Menu {...this.props} toggleMarkersFor={this.toggleMarkersFor} markerType={this.state.markerType}/>
             <MusicMap {...this.props} markers={this.state.markers} markerType={this.state.markerType}/>
           </div>
       ) : (

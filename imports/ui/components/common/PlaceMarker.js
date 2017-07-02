@@ -39,7 +39,7 @@ export default class PlaceMarker extends Component {
               <h5 className="infowindow-subtitle">Wydarzenia:</h5>
               { this.props.eventsAtPlace.length > 0 ?
                   this.props.eventsAtPlace.map((eventObject, index) => {
-                    return <EventDialog key={index} eventObject={eventObject}/>
+                    return <EventDialog key={index} eventObject={eventObject} eventMedia={this.props.mediaAtPlace}/>
                   })
                 : <span>W tym miejscu nie dodano jeszcze żadnych wydarzeń</span>}
             </div>
