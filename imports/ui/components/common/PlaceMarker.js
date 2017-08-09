@@ -2,8 +2,8 @@ import {
   default as React,
   Component,
 } from "react";
-import { Marker, InfoWindow } from "react-google-maps";
-import EventDialog from '../dialogs/EventDialog';
+import { Marker } from "react-google-maps";
+import PlaceInfoWindow from '../common/PlaceInfoWindow';
 
 export default class PlaceMarker extends Component {
   getIcon(placeType) {
@@ -13,7 +13,7 @@ export default class PlaceMarker extends Component {
       outdoorHall: "/img/outdoorHall.png",
       pub: "/img/pint.svg",
     };
-    return iconMap[placeType];
+    return iconMap[placeType] || iconMap['club'];
   }
 
   render() {
@@ -30,21 +30,7 @@ export default class PlaceMarker extends Component {
         title={marker.name}
         onClick={onClick}
       >
-        {marker.showInfo && (
-          <InfoWindow onCloseClick={onCloseClick}
-                      key={marker.name}
-          >
-            <div>
-              <h4 className="infowindow-title">{marker.name}</h4>
-              <h5 className="infowindow-subtitle">Wydarzenia:</h5>
-              { this.props.eventsAtPlace.length > 0 ?
-                  this.props.eventsAtPlace.map((eventObject, index) => {
-                    return <EventDialog key={index} eventObject={eventObject} eventMedia={this.props.mediaAtPlace}/>
-                  })
-                : <span>W tym miejscu nie dodano jeszcze żadnych wydarzeń</span>}
-            </div>
-          </InfoWindow>
-        )}
+        {marker.showInfo && <PlaceInfoWindow {...this.props}/>}
       </Marker>
     )
   }
