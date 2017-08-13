@@ -13,13 +13,6 @@ const styles = {
 };
 
 export default class TextInput extends React.Component {
-  onInputChange = (e) => {
-    const field = e.target.getAttribute('id').replace('_input', '');
-    const newStateElements = {};
-    newStateElements[field] = e.target.value;
-    this.setState(newStateElements)
-  }
-
   render() {
     return (
       <TextField id={this.props.inputId}

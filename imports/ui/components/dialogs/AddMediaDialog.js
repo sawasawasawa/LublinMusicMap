@@ -56,7 +56,7 @@ export default class AddMediaDialog extends React.Component {
   }
 
   handlePlaceChange = (event, index, selectedPlace) => {
-    this.setState({selectedPlace});
+    this.setState({placeId: selectedPlace});
   }
 
   handleEventChange = (event, index, eventId) => {

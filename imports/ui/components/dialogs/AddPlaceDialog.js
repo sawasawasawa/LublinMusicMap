@@ -18,8 +18,8 @@ export default class AddNewPlaceModal extends React.Component {
     open: false,
   };
 
-  handleVenueTypeChange = (event, index, placeId) => {
-    this.setState({placeId});
+  handleVenueTypeChange = (event, index, type) => {
+    this.setState({type});
   }
 
   handleOpen = () => {
@@ -46,12 +46,25 @@ export default class AddNewPlaceModal extends React.Component {
     location.reload();
   }
 
+  onInputChange = (e) => {
+    const field = e.target.getAttribute('id').replace('_input', '');
+    const newStateElements = {};
+    newStateElements[field] = e.target.value;
+    this.setState(newStateElements)
+  }
+
   render() {
+    console.log("_______ this.state", this.state);
     const venueTypes = [
-      <MenuItem key={1} value={'Klub'} primaryText={'Video - Youtube'} />,
-      <MenuItem key={2} value={'Pub'} primaryText={'MP3 - SoundCloud'} disabled={true}/>,
-      <MenuItem key={3} value={'Sala koncertowa'} primaryText={'Zdjęcie'} disabled={true}/>,
-      <MenuItem key={4} value={'Inne'} primaryText={'Inne'} disabled={true}/>,
+      <MenuItem key={1} value={'Klub'} primaryText={'Klub'}/>,
+      <MenuItem key={2} value={'Pub'} primaryText={'Pub'}/>,
+      <MenuItem key={3} value={'Sala koncertowa'} primaryText={'Sala koncertowa'}/>,
+      <MenuItem key={4} value={'Inne'} primaryText={'Inne'}/>,
+      <MenuItem key={5} value={'Dom kultury'} primaryText={'Dom kultury'}/>,
+      <MenuItem key={6} value={'Centrum kultury'} primaryText={'Centrum kultury'}/>,
+      <MenuItem key={7} value={'Filharmonia'} primaryText={'Filharmonia'}/>,
+      <MenuItem key={8} value={'Radio'} primaryText={'Radio'}/>,
+      <MenuItem key={9} value={'Telewizja'} primaryText={'Telewizja'}/>,
     ];
     const actions = [
       <FlatButton label="Anuluj" primary={true} onTouchTap={this.handleClose}/>,
@@ -62,7 +75,7 @@ export default class AddNewPlaceModal extends React.Component {
 
     return (
       <div>
-        <RaisedButton label="Dodaj miejsce" onTouchTap={this.handleOpen} />
+        <RaisedButton label="Dodaj miejsce" onTouchTap={this.handleOpen}/>
         <Dialog
           title="Dodaj miejsce"
           actions={actions}
@@ -75,16 +88,14 @@ export default class AddNewPlaceModal extends React.Component {
           <Autocomplete
             style={{width: '100%'}}
             onPlaceSelected={(place) => {
-              if (Object.keys(place).length == 1 && place.name) {
-                console.log('!!! TODO: Implement saving place by address')
-              } else {
-                this.setState({ place,position: {
+              this.setState({
+                place, position: {
                   lat: place.geometry.location.lat(),
                   lng: place.geometry.location.lng(),
-                } })
-              }
+                }
+              })
             }}
-            types={['establishment']} //TODO needed?
+            types={['address']} //TODO needed?
             componentRestrictions={{country: "pl"}}
             bounds={searchBounds}
           />
@@ -95,12 +106,12 @@ export default class AddNewPlaceModal extends React.Component {
             floatingLabelText="Rodzaj lokalu"
             floatingLabelStyle={{color: orange500}}
             maxHeight={400}
-            disabled={!(this.state.position && this.state.name)}
+            disabled={!(this.state.position)}
           >
             { venueTypes }
           </SelectField>
           <br />
-          <TextInput inputId="description_input" inputLabel="Nazwa" onChange={this.onInputChange}/><br />
+          <TextInput inputId="description_input" inputLabel="Opis" onChange={this.onInputChange}/><br />
           <TextInput inputId="www_input" inputLabel="WWW" onChange={this.onInputChange}/><br />
           <TextInput inputId="fb_input" inputLabel="Facebook" onChange={this.onInputChange}/><br />
           <TextInput inputId="instagram_input" inputLabel="Instagram" onChange={this.onInputChange}/>
