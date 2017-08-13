@@ -1,5 +1,6 @@
 import React from 'react';
 import {orange500, blue500} from 'material-ui/styles/colors';
+import Select from './Select';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
@@ -28,16 +29,12 @@ export default class PlaceSelect extends React.Component {
       return <MenuItem key={place._id} value={place._id} primaryText={place.name} />
     });
     return (
-          <SelectField
-            value={this.props.selectedPlace}
-            onChange={this.handlePlaceChange}
+          <Select
+            selectedOption={this.state.selectedPlace}
+            handleOptionChange={this.handlePlaceChange}
             floatingLabelText="Lokalizacja"
-            floatingLabelStyle={{color: orange500}}
-            maxHeight={400}
-          >
-            { places }
-          </SelectField>
-
+            selectOptions={this.props.places}
+          />
     );
   }
 }

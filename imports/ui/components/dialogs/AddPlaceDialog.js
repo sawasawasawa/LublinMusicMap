@@ -54,7 +54,6 @@ export default class AddNewPlaceModal extends React.Component {
   }
 
   render() {
-    console.log("_______ this.state", this.state);
     const venueTypes = [
       <MenuItem key={1} value={'Klub'} primaryText={'Klub'}/>,
       <MenuItem key={2} value={'Pub'} primaryText={'Pub'}/>,
@@ -111,9 +110,9 @@ export default class AddNewPlaceModal extends React.Component {
             { venueTypes }
           </SelectField>
           <br />
-          <TextInput inputId="description_input" inputLabel="Opis" onChange={this.onInputChange}/><br />
-          <TextInput inputId="www_input" inputLabel="WWW" onChange={this.onInputChange}/><br />
-          <TextInput inputId="fb_input" inputLabel="Facebook" onChange={this.onInputChange}/><br />
+          <TextInput inputId="description_input" inputLabel="Opis" onChange={this.onInputChange} multiLine={true}/>
+          <TextInput inputId="www_input" inputLabel="WWW" onChange={this.onInputChange}/>
+          <TextInput inputId="fb_input" inputLabel="Facebook" onChange={this.onInputChange}/>
           <TextInput inputId="instagram_input" inputLabel="Instagram" onChange={this.onInputChange}/>
         </Dialog>
       </div>

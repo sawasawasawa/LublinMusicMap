@@ -2,8 +2,9 @@ import React from 'react';
 import { render } from 'react-dom';
 import App from '../../ui/App.js';
 
-Router.route('/', () => {
+Router.route('/', function() {
   render(<App />, document.getElementById('main-container'));
+  this.next()
 });
 
 Router.route('/elo', {

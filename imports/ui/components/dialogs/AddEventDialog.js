@@ -2,7 +2,6 @@ import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
 import {orange500, blue500} from 'material-ui/styles/colors';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
@@ -57,6 +56,7 @@ export default class AddNewEventDialog extends React.Component {
   }
 
   onInputChange = (e) => {
+    e.preventDefault();
     const field = e.target.getAttribute('id').replace('_input', '');
     const newStateElements = {};
     newStateElements[field] = e.target.value;
@@ -101,7 +101,7 @@ export default class AddNewEventDialog extends React.Component {
                       textFieldStyle={{...styles.floatingLabelStyle}}
           />
           <TextInput inputId="fb_event_link_input" inputLabel="Link do wydarzenia na Facebook" onInputChange={this.onInputChange}/><br />
-          <TextInput inputiId="description_input" inputLabel="Opis" onInputChange={this.onInputChange} />
+          <TextInput inputId="description_input" inputLabel="Opis" onInputChange={this.onInputChange} />
         </Dialog>
       </div>
     );

@@ -15,11 +15,14 @@ const styles = {
 export default class TextInput extends React.Component {
   render() {
     return (
-      <TextField id={this.props.inputId}
+      <TextField disabled={this.props.disabled}
+                 multiLine={this.props.multiLine}
+                 id={this.props.inputId}
                  floatingLabelText={this.props.inputLabel}
                  floatingLabelStyle={{...styles.floatingLabelStyle, multiLine: true}}
                  floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
                  onChange={this.props.onInputChange}
+                 style={{width: '100%'}}
       />
     );
   }

@@ -4,11 +4,12 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import {orange500, blue500} from 'material-ui/styles/colors';
 import SelectField from 'material-ui/SelectField';
+import Select from '../common/Select';
 import MenuItem from 'material-ui/MenuItem';
 import { Media } from '../../../api/media.js';
 import { Places } from '../../../api/places.js';
 import { Events } from '../../../api/events.js';
-import TextField from 'material-ui/TextField';
+import TextInput from '../common/TextInput';
 import PlaceSelect from '../common/PlaceSelect';
 const styles = {
   floatingLabelStyle: {
@@ -31,7 +32,6 @@ export default class AddMediaDialog extends React.Component {
 
   handleOpen = () => {
     let mediaSub = Meteor.subscribe('media');
-    //console.log('¯\_(ツ)_/¯: mediaSub', mediaSub);
     this.setState({open: true});
   };
 
@@ -56,7 +56,7 @@ export default class AddMediaDialog extends React.Component {
   }
 
   handlePlaceChange = (event, index, selectedPlace) => {
-    this.setState({placeId: selectedPlace});
+    this.setState({placeId: selectedPlace, placeEvents: Events.find({placeId: selectedPlace})});
   }
 
   handleEventChange = (event, index, eventId) => {
@@ -113,21 +113,20 @@ export default class AddMediaDialog extends React.Component {
           autoScrollBodyContent={true}
         >
           <PlaceSelect
-            selectedPlace={this.state.selectedPlace}
+            selectedPlace={this.state.placeId}
             handlePlaceChange={this.handlePlaceChange}
             places={this.props.places}
           />
           <br />
-          <SelectField
+          <Select
             value={this.state.eventId}
-            onChange={this.handleEventChange}
+            handleOptionChange={this.handleEventChange}
             floatingLabelText="Wydarzenie"
-            floatingLabelStyle={{color: orange500}}
-            maxHeight={400}
             disabled={!this.state.placeId}
+            selectOptions={this.state.placeEvents || []}
           >
             { events }
-          </SelectField>
+          </Select>
           <br />
           <SelectField
             value={this.state.mediaType}
@@ -135,36 +134,28 @@ export default class AddMediaDialog extends React.Component {
             floatingLabelText="Rodzaj pliku"
             floatingLabelStyle={{color: orange500}}
             maxHeight={400}
+            style={{width:'100%'}}
             disabled={!this.state.placeId}
           >
             { mediaTypes }
           </SelectField>
           <br />
-          <TextField id="name_input"
-                     floatingLabelText="Nazwa pliku"
-                     floatingLabelStyle={styles.floatingLabelStyle}
-                     floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
-                     onChange={this.onInputChange}
+          <TextInput inputId="name_input"
+                     inputLabel="Nazwa pliku"
+                     onInputChange={this.onInputChange}
                      disabled={!this.state.placeId}
           />
-          <br />
-          <TextField id="videoLink_input"
-                     floatingLabelText="YouTube video link"
-                     floatingLabelStyle={styles.floatingLabelStyle}
-                     floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
-                     onChange={this.onInputChange}
+          <TextInput inputId="videoLink_input"
+                     inputLabel="YouTube video link"
+                     onInputChange={this.onInputChange}
                      disabled={!this.state.placeId}
           />
-          <br />
-          <TextField id="description_input"
-                     floatingLabelText="Opis"
-                     floatingLabelStyle={styles.floatingLabelStyle}
-                     floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
-                     onChange={this.onInputChange}
+          <TextInput inputId="description_input"
+                     inputLabel="Opis"
+                     onInputChange={this.onInputChange}
                      disabled={!this.state.placeId}
                      multiLine={true}
           />
-
         </Dialog>
       </div>
     );

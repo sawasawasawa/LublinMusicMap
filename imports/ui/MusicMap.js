@@ -163,7 +163,6 @@ export default class MusicMap extends Component {
   }
 
   render() {
-    console.log('__MusicMap__, state, props', this.state, this.props)
     return (
       <MusicMapGoogleMap id={"musicMap"} className={"musicMap"}
                          containerElement={
