@@ -1,12 +1,8 @@
-import React from 'react';
-import { render } from 'react-dom';
-import App from '../../ui/App.js';
-
 Router.route('/', function() {
-  render(<App />, document.getElementById('main-container'));
-  this.next()
+  this.render('map');
 });
 
-Router.route('/elo', {
-  template: 'elo'
+Router.route('/login', function () {
+  this.render('login');
 });
+

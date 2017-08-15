@@ -4,7 +4,7 @@ import {
   Component,
 } from "react";
 import {withGoogleMap, GoogleMap} from "react-google-maps";
-import mapStylesMagenta from "../../client/mapStyles-magenta.json"
+import mapStylesMagenta from "../../client/map/mapStyles-magenta.json"
 import SearchBox from "react-google-maps/lib/places/SearchBox"; //TODO needed?
 import {Events} from '../api/events.js';
 import PlaceMarker from './components/common/PlaceMarker';

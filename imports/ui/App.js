@@ -38,10 +38,6 @@ export class AppContent extends Component {
     }
   }
 
-  // componentWillUpdate(p,s){
-  //   console.log('component updating', p,s)
-  // }
-
   render() {
     return <MuiThemeProvider>
       {this.props.dataReady ?  (
