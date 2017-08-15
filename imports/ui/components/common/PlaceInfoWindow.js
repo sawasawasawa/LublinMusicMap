@@ -6,18 +6,36 @@ import { InfoWindow } from "react-google-maps";
 import EventDialog from '../dialogs/EventDialog';
 
 export default class PlaceMarker extends Component {
+  socialIcons() {
+    //TODO: refactor into component
+    const media = ['insta', 'www', 'fb', 'youtube']
+    const iconsToDisplay = media.filter((media)=>{
+      return !!this.props.marker[media]
+    })
+    return iconsToDisplay.map((icon, index)=>{
+      return(
+        <a href={this.props.marker[icon]} target='_blank'>
+          <img key={index} src={`/img/resize/${icon}.png`} />
+        </a>
+      )
+    })
+  }
 
   render() {
-    console.log('¯\_(ツ)_/¯ eeeelo');
-    console.log('¯\_(ツ)_/¯: process.env.FB_APP_ID', process.env.FB_APP_ID);
+    //TODO: get facebook events
+    // console.log('¯\_(ツ)_/¯: process.env.FB_APP_ID', process.env.FB_APP_ID);
     const marker = this.props.marker;
-    console.log('¯\_(ツ)_/¯: marker', marker);
     const onCloseClick = () => this.props.onCloseClick(marker);
 
     return (
-      <InfoWindow onCloseClick={onCloseClick} key={marker.name}>
-        <div>
+      <InfoWindow onCloseClick={onCloseClick} key={marker.name} >
+        <div style={{maxWidth: '450px', maxHeight: '550px', marginLeft: '10px'}}>
           <h4 className="infowindow-title">{marker.name}</h4>
+          <img src={marker.photo} style={{maxHeight: '300px', maxWidth: '500px', margin: '20px auto', display: 'block'}}/>
+          <div style={{width: '100%', textAlign: 'center'}}>
+            {this.socialIcons()}
+          </div>
+          <p>{marker.description}</p>
           <h5 className="infowindow-subtitle">Wydarzenia:</h5>
           { this.props.eventsAtPlace.length > 0 ?
             this.props.eventsAtPlace.map((eventObject, index) => {

@@ -6,14 +6,32 @@ import { Marker } from "react-google-maps";
 import PlaceInfoWindow from '../common/PlaceInfoWindow';
 
 export default class PlaceMarker extends Component {
-  getIcon(placeType) {
+  getIcon(marker) {
+    if (marker.mediaType) {
+      return this.getIconForMedia(marker)
+    }
+    return this.getIconForPlace(marker)
+  }
+
+  getIconForMedia(record){
+    const iconMap = {
+      youtubeVideo: "/img/youtube.svg",
+      mp3: "/img/resize/record.png"
+    };
+    return iconMap[record.mediaType] || iconMap['mp3'];
+  }
+
+  getIconForPlace(place){
     //TODO move it somewhere else
     const iconMap = {
       club: "/img/disco-ball.svg",
       outdoorHall: "/img/outdoorHall.png",
-      pub: "/img/pint.svg",
+      pub: "/img/cafe.png",
+      tv: "/img/resize/tv.png",
+      radio: "/img/resize/radio.png",
+      culture: "/img/resize/culture.png",
     };
-    return iconMap[placeType] || iconMap['club'];
+    return iconMap[place.type] || iconMap['culture'];
   }
 
   render() {
@@ -26,7 +44,7 @@ export default class PlaceMarker extends Component {
       <Marker
         position={{ lat: marker.position.lat, lng: marker.position.lng }}
         key={index}
-        icon = {this.getIcon(marker.type)}
+        icon = {this.getIcon(marker)}
         title={marker.name}
         onClick={onClick}
       >

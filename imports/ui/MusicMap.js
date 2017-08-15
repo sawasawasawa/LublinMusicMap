@@ -7,6 +7,7 @@ import {withGoogleMap, GoogleMap} from "react-google-maps";
 import mapStylesMagenta from "../../client/map/mapStyles-magenta.json"
 import SearchBox from "react-google-maps/lib/places/SearchBox"; //TODO needed?
 import {Events} from '../api/events.js';
+import RaisedButton from 'material-ui/RaisedButton';
 import PlaceMarker from './components/common/PlaceMarker';
 
 const INPUT_STYLE = {
@@ -32,11 +33,12 @@ const searchBounds = new google.maps.LatLngBounds(
 );
 
 const MusicMapGoogleMap = withGoogleMap(props => {
+  const showPlaces = props.markerType == 'places';
     return (
       <GoogleMap
         ref={props.onMapMounted}
         defaultZoom={15}
-        center={{lat: 51.244323, lng: 22.560004}}
+        center={props.center || {lat: 51.244323, lng: 22.560004}}
         defaultOptions={{
           styles: mapStylesMagenta,
           mapTypeControl: false,
@@ -49,6 +51,10 @@ const MusicMapGoogleMap = withGoogleMap(props => {
         }}
 
       >
+        <div style={{position: 'absolute', top: '10px', right: '60px'}}>
+          <RaisedButton label="Miejsca" secondary={showPlaces} onClick={props.toggleMarkersForPlaces} />
+          <RaisedButton label="Nagrania" secondary={!showPlaces} onClick={props.toggleMarkersForMedia} />
+        </div>
         <SearchBox id={"searchBox"} idName={"searchBox"}
                    ref={props.onSearchBoxMounted}
                    bounds={searchBounds}
@@ -121,6 +127,7 @@ export default class MusicMap extends Component {
 
   handleMarkerClick(targetMarker) {
     this.setState({
+      center: targetMarker.position,
       markers: this.state.markers.map(marker => {
         return {
           ...marker,
@@ -162,6 +169,14 @@ export default class MusicMap extends Component {
     Meteor.call('addPlace', placeObject)
   }
 
+  toggleMarkersForPlaces = () => {
+    this.props.toggleMarkersFor('places')
+  }
+
+  toggleMarkersForMedia = () => {
+    this.props.toggleMarkersFor('media')
+  }
+
   render() {
     return (
       <MusicMapGoogleMap id={"musicMap"} className={"musicMap"}
@@ -174,6 +189,9 @@ export default class MusicMap extends Component {
                            </div>
                          }
                          {...this.props}
+                         toggleMarkersForPlaces={this.toggleMarkersForPlaces}
+                         toggleMarkersForMedia={this.toggleMarkersForMedia}
+                         center={this.state.center}
                          onMapMounted={this.handleMapMounted}
                          onSearchBoxMounted={this.handleSearchBoxMounted}
                          bounds={this.state.bounds}

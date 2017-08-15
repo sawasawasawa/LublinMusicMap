@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import AddNewPlaceDialog from './components/dialogs/AddPlaceDialog'
 import AddNewEventDialog from './components/dialogs/AddEventDialog'
@@ -39,17 +38,7 @@ export default class Menu extends Component {
     this.hideMenu();
   }
 
-  toggleMarkersForPlaces = () => {
-    this.props.toggleMarkersFor('places')
-  }
-
-  toggleMarkersForMedia = () => {
-    this.props.toggleMarkersFor('media')
-  }
-
   render() {
-    const showPlaces = this.props.markerType == 'places';
-
     return (
       <div id="menu" className={'bottomButton'}>
         <RaisedButton
@@ -65,13 +54,6 @@ export default class Menu extends Component {
                   boxShadow: 0
                 }}>
           <div id="menu--items">
-            <RaisedButton
-              label="Na mapie wyświetlaj:"
-              backgroundColor="#E6007E"
-              labelColor="#fff"
-            />
-            <RaisedButton label={`Miejsca ${ showPlaces ? ' 👈': ''}`} onClick={this.toggleMarkersForPlaces} secondary={showPlaces}/><br />
-            <RaisedButton label={`Nagrania ${ !showPlaces ? ' 👈': ''}`}  onClick={this.toggleMarkersForMedia} secondary={!showPlaces}/><br /><br />
             <AllEventsDialog {...this.props}/>
             <AllMediaDialog {...this.props}/>
             <br />
