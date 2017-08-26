@@ -4,11 +4,11 @@ import {
   Component,
 } from "react";
 import {withGoogleMap, GoogleMap} from "react-google-maps";
-import mapStylesMagenta from "../../client/map/mapStyles-magenta.json"
+import mapStylesMagenta from "../../../client/map/mapStyles-magenta.json"
 import SearchBox from "react-google-maps/lib/places/SearchBox"; //TODO needed?
-import {Events} from '../api/events.js';
 import RaisedButton from 'material-ui/RaisedButton';
-import PlaceMarker from './components/common/PlaceMarker';
+import { Markers } from './Markers'
+import { MarkerList } from './MarkerList'
 
 const INPUT_STYLE = {
   boxSizing: `border-box`,
@@ -64,17 +64,11 @@ const MusicMapGoogleMap = withGoogleMap(props => {
                    inputStyle={INPUT_STYLE}
                    inputClassName={'searchBox'}
         />
-
-        {props.markers ? props.markers.map((marker, index) => {
-          return <PlaceMarker key={index}
-                              marker={marker}
-                              onMarkerClick={() => props.onMarkerClick(marker)}
-                              onCloseClick={() => props.onCloseClick(marker)}
-                              mediaAtPlace={ props.media ? props.media.filter((e)=>{return e.placeId == marker._id}) : [] }
-                              eventsAtPlace={ props.events ? props.events.filter((e)=>{return e.placeId == marker._id}) : [] }
-          />
-        })
-          : null}
+        <Markers markers={props.markers}
+                 onCloseClick={props.onCloseClick}
+                 onMarkerClick={props.onMarkerClick}
+        />
+        <MarkerList {...props}/>
       </GoogleMap>
     )
   }
@@ -127,7 +121,7 @@ export default class MusicMap extends Component {
 
   handleMarkerClick(targetMarker) {
     this.setState({
-      center: targetMarker.position,
+      center: this.getNewCenter(targetMarker.position),
       markers: this.state.markers.map(marker => {
         return {
           ...marker,
@@ -135,6 +129,13 @@ export default class MusicMap extends Component {
         };
       }),
     });
+  }
+  
+  getNewCenter(position) {
+    return {
+      lat: position.lat - 0.9,
+      lng: position.lng
+    };
   }
 
   handleCloseClick(targetMarker) {

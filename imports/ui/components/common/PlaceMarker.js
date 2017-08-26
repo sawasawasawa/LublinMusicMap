@@ -7,10 +7,16 @@ import PlaceInfoWindow from '../common/PlaceInfoWindow';
 
 export default class PlaceMarker extends Component {
   getIcon(marker) {
+    let url;
     if (marker.mediaType) {
-      return this.getIconForMedia(marker)
+      url = this.getIconForMedia(marker)
+    } else {
+      url = this.getIconForPlace(marker)
     }
-    return this.getIconForPlace(marker)
+    return {
+      url,
+      scaledSize: new google.maps.Size(32, 32)
+    }
   }
 
   getIconForMedia(record){
@@ -43,7 +49,7 @@ export default class PlaceMarker extends Component {
     return (
       <Marker
         position={{ lat: marker.position.lat, lng: marker.position.lng }}
-        key={index}
+        key={marker.name}
         icon = {this.getIcon(marker)}
         title={marker.name}
         onClick={onClick}

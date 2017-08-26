@@ -14,8 +14,8 @@ export default class PlaceMarker extends Component {
     })
     return iconsToDisplay.map((icon, index)=>{
       return(
-        <a href={this.props.marker[icon]} target='_blank'>
-          <img key={index} src={`/img/resize/${icon}.png`} />
+        <a href={this.props.marker[icon]} target='_blank' style={{marginLeft: 10}}>
+          <img key={index} src={`/img/resize/${icon}.png`} width="32px" height="32px"/>
         </a>
       )
     })
@@ -32,7 +32,7 @@ export default class PlaceMarker extends Component {
         <div style={{maxWidth: '450px', maxHeight: '550px', marginLeft: '10px'}}>
           <h4 className="infowindow-title">{marker.name}</h4>
           <img src={marker.photo} style={{maxHeight: '300px', maxWidth: '500px', margin: '20px auto', display: 'block'}}/>
-          <div style={{width: '100%', textAlign: 'center'}}>
+          <div style={{width: '100%', textAlign: 'right'}}>
             {this.socialIcons()}
           </div>
           <p>{marker.description}</p>

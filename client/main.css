@@ -139,9 +139,9 @@ header {
 }
 
 .infowindow-title, .infowindow-subtitle {
-    text-decoration: underline;
+    /*text-decoration: underline;*/
     font-family: 'Rubik Mono One';
-    text-align: center;
+    /*text-align: center;*/
     text-transform:  uppercase;
     font-weight: 900;
 }
