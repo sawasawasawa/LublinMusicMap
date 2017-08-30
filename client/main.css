@@ -1,4 +1,4 @@
-/*@import url('https://fonts.googleapis.com/css?family=Righteous');*/
+/*@import u`rl('https://fonts.googleapis.com/css?family=Righteous');*/
 @import url('https://fonts.googleapis.com/css?family=Ubuntu|Roboto|Rubik|Rubik+Mono+One');
 * {
     font-family: Ubuntu;
@@ -151,4 +151,22 @@ header {
     vertical-align: middle;
     font-size: 1rem;
     margin: 0px
+}
+
+.overlay-list ul {
+    margin: 0;
+    padding: 10px;
+    list-style-type: none;
+    border: 1px solid #EE3858;
+}
+
+.overlay-list ul li {
+    padding: 5px;
+}
+
+.overlay-list ul li * {
+    display: inline;
+    line-height: 32px;
+    vertical-align: middle;
+    margin-right: 5px
 }

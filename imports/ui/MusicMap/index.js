@@ -3,75 +3,11 @@ import {
   default as React,
   Component,
 } from "react";
-import {withGoogleMap, GoogleMap} from "react-google-maps";
-import mapStylesMagenta from "../../../client/map/mapStyles-magenta.json"
-import SearchBox from "react-google-maps/lib/places/SearchBox"; //TODO needed?
-import RaisedButton from 'material-ui/RaisedButton';
-import { Markers } from './Markers'
-import { MarkerList } from './MarkerList'
-
-const INPUT_STYLE = {
-  boxSizing: `border-box`,
-  MozBoxSizing: `border-box`,
-  border: `1px solid transparent`,
-  width: `240px`,
-  height: `32px`,
-  marginTop: `27px`,
-  padding: `0 12px`,
-  borderRadius: `1px`,
-  boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-  fontSize: `14px`,
-  outline: `none`,
-  textOverflow: `ellipses`,
-  opacity: 0
-};
-
+import MusicMapGoogleMap from './MusicMapGoogleMap'
 
 const searchBounds = new google.maps.LatLngBounds(
   new google.maps.LatLng(51.197568, 22.733813),
   new google.maps.LatLng(51.288109, 22.4356302)
-);
-
-const MusicMapGoogleMap = withGoogleMap(props => {
-  const showPlaces = props.markerType == 'places';
-    return (
-      <GoogleMap
-        ref={props.onMapMounted}
-        defaultZoom={15}
-        center={props.center || {lat: 51.244323, lng: 22.560004}}
-        defaultOptions={{
-          styles: mapStylesMagenta,
-          mapTypeControl: false,
-          streetViewControl: false,
-          zoomControl: true,
-          zoomControlOptions: {
-            style: google.maps.ZoomControlStyle.LARGE,
-            position: google.maps.ControlPosition.TOP_RIGHT
-          }
-        }}
-
-      >
-        <div style={{position: 'absolute', top: '10px', right: '60px'}}>
-          <RaisedButton label="Miejsca" secondary={showPlaces} onClick={props.toggleMarkersForPlaces} />
-          <RaisedButton label="Nagrania" secondary={!showPlaces} onClick={props.toggleMarkersForMedia} />
-        </div>
-        <SearchBox id={"searchBox"} idName={"searchBox"}
-                   ref={props.onSearchBoxMounted}
-                   bounds={searchBounds}
-                   controlPosition={google.maps.ControlPosition.TOP_RIGHT}
-                   onPlacesChanged={props.onPlacesChanged}
-                   inputPlaceholder="Podaj dokładny adres"
-                   inputStyle={INPUT_STYLE}
-                   inputClassName={'searchBox'}
-        />
-        <Markers markers={props.markers}
-                 onCloseClick={props.onCloseClick}
-                 onMarkerClick={props.onMarkerClick}
-        />
-        <MarkerList {...props}/>
-      </GoogleMap>
-    )
-  }
 );
 
 export default class MusicMap extends Component {
@@ -80,12 +16,14 @@ export default class MusicMap extends Component {
     bounds: searchBounds,
     markers: this.props.markers,
     markerType: this.props.markerType,
+    center: this.props.center || {lat: 51.244323, lng: 22.560004}
   };
 
   handleMapMounted = this.handleMapMounted.bind(this);
   handleSearchBoxMounted = this.handleSearchBoxMounted.bind(this);
   handlePlacesChanged = this.handlePlacesChanged.bind(this);
   handleMarkerClick = this.handleMarkerClick.bind(this);
+  handleClusterClick = this.handleClusterClick.bind(this);
   handleCloseClick = this.handleCloseClick.bind(this);
 
   componentWillReceiveProps(nextProps) {
@@ -122,6 +60,7 @@ export default class MusicMap extends Component {
   handleMarkerClick(targetMarker) {
     this.setState({
       center: this.getNewCenter(targetMarker.position),
+      overlay: undefined,
       markers: this.state.markers.map(marker => {
         return {
           ...marker,
@@ -130,7 +69,33 @@ export default class MusicMap extends Component {
       }),
     });
   }
-  
+
+  hideMarkers() {
+    this.setState({
+      markers: this.state.markers.map(marker => {
+        return {
+          ...marker,
+          showInfo: false,
+        };
+      }),
+    });
+  }
+
+  handleClusterClick(cluster) {
+    this.hideMarkers()
+    const position = {
+      lat: cluster.markers_[0].position.lat(),
+      lng: cluster.markers_[0].position.lng()
+    }
+    this.setState({
+      overlay: {
+        position,
+        open: true,
+        markers: cluster.markers_
+      }
+    });
+  }
+
   getNewCenter(position) {
     return {
       lat: position.lat - 0.9,
@@ -198,8 +163,11 @@ export default class MusicMap extends Component {
                          bounds={this.state.bounds}
                          onPlacesChanged={this.handlePlacesChanged}
                          markers={this.state.markers}
+                         overlay={this.state.overlay}
                          onMarkerClick={this.handleMarkerClick}
+                         handleClusterClick={this.handleClusterClick}
                          onCloseClick={this.handleCloseClick}
+                         onMove={this.handleMove}
       />
     );
   }

@@ -15,7 +15,7 @@ export default class PlaceMarker extends Component {
     return iconsToDisplay.map((icon, index)=>{
       return(
         <a href={this.props.marker[icon]} target='_blank' style={{marginLeft: 10}}>
-          <img key={index} src={`/img/resize/${icon}.png`} width="32px" height="32px"/>
+          <img key={index} src={`/img/resize/${icon}.png`} width="32px"/>
         </a>
       )
     })
