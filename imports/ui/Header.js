@@ -16,6 +16,7 @@ export class Header extends Component {
       transformOrigin: '0% 0%'
     };
     const footerBackgroundStyle = {
+      pointerEvents: 'none',
       width: '266px',
       height: '266px',
       position:'fixed',
