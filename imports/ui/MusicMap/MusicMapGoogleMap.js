@@ -49,22 +49,29 @@ const MusicMapGoogleMap = withGoogleMap(props => {
           <RaisedButton label="Nagrania" secondary={!showPlaces} onClick={props.toggleMarkersForMedia} />
         </div>
         <SearchBox id={"searchBox"} idName={"searchBox"}
-                   ref={props.onSearchBoxMounted}
-                   bounds={props.bounds}
-                   controlPosition={google.maps.ControlPosition.TOP_RIGHT}
-                   onPlacesChanged={props.onPlacesChanged}
-                   inputPlaceholder="Podaj dokładny adres"
-                   inputStyle={INPUT_STYLE}
-                   inputClassName={'searchBox'}
+             ref={props.onSearchBoxMounted}
+             bounds={props.bounds}
+             controlPosition={google.maps.ControlPosition.TOP_RIGHT}
+             onPlacesChanged={props.onPlacesChanged}
+             inputPlaceholder="Podaj dokładny adres"
+             inputStyle={INPUT_STYLE}
+             inputClassName={'searchBox'}
         />
         <Markers markers={props.markers}
-                 onCloseClick={props.onCloseClick}
-                 onMarkerClick={props.onMarkerClick}
-                 handleClusterClick={(cluster)=>{
-                   props.handleClusterClick(cluster)
-                 }}
+             onCloseClick={props.onCloseClick}
+             onMarkerClick={props.onMarkerClick}
+             handleClusterClick={(cluster)=>{
+               props.handleClusterClick(cluster)
+             }}
         />
-        <ClusteredMarkerOverlay {...props.overlay} center = {props.center}  />
+        <ClusteredMarkerOverlay
+            {...props.overlay}
+            center = {props.center}
+            handleMarkerClick={(marker)=>{
+              props.onMarkerClick(marker)
+            }}
+        />
+
       </GoogleMap>
     )
   }

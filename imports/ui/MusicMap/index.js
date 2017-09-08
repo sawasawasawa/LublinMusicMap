@@ -58,8 +58,9 @@ export default class MusicMap extends Component {
   }
 
   handleMarkerClick(targetMarker) {
+    const center = this.getNewCenter(targetMarker.position);
     this.setState({
-      center: this.getNewCenter(targetMarker.position),
+      center,
       overlay: undefined,
       markers: this.state.markers.map(marker => {
         return {
@@ -91,15 +92,26 @@ export default class MusicMap extends Component {
       overlay: {
         position,
         open: true,
-        markers: cluster.markers_
+        markers: this.addIdsToClusterMarkers(cluster.markers_)
       }
     });
   }
 
+  addIdsToClusterMarkers = (markers) => {
+    return markers.map((marker)=>{
+      return {
+        ...marker,
+        _id: this.state.markers.find((m)=>{
+          return m.name == marker.title
+        })._id
+      }
+    })
+  }
+
   getNewCenter(position) {
     return {
-      lat: position.lat - 0.9,
-      lng: position.lng
+      lat: ($.isFunction(position.lat) && position.lat())  || position.lat - 0.9,
+      lng: ($.isFunction(position.lng) && position.lng()) || position.lng
     };
   }
 

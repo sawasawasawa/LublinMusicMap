@@ -21,7 +21,6 @@ export const Markers = (props) => {
           width: 50
         }]}
         onClick={(cluster)=>{
-          const markers = cluster.getMarkers()
           props.handleClusterClick(cluster)
         }}
       >

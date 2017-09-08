@@ -5,7 +5,6 @@ import {
 import {OverlayView} from "react-google-maps";
 
 export const ClusteredMarkerOverlay = (props) => {
-  console.log("_______ props.markers", props.markers);
   return <OverlayView
     mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
     position={(props && props.position) || props.center}
@@ -20,9 +19,9 @@ export const ClusteredMarkerOverlay = (props) => {
       <ul>
         {props.markers && props.markers.map((marker, index) => {
           return <PlaceRow
-            index = {index}
-            icon = {marker.icon.url}
-            name = {marker.title}
+            marker = {marker}
+            key = {index}
+            handleMarkerClick = {props.handleMarkerClick}
           />
         })}
       </ul>
@@ -31,9 +30,11 @@ export const ClusteredMarkerOverlay = (props) => {
 }
 
 const PlaceRow = (props) => {
-  return  <li key={props.index} onClick={()=>{console.log('_____ implement opening clicked place card', props.name)}}>
-    <img src={props.icon} width="32px" />
-    <h4>{props.name}</h4>
+  return  <li key={props.index} onClick={()=>{
+    props.handleMarkerClick(props.marker)
+  }}>
+    <img src={props.marker.icon.url} width="32px" />
+    <h4>{props.marker.title}</h4>
   </li>
 }
 
