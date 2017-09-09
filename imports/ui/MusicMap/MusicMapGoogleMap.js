@@ -9,6 +9,7 @@ import SearchBox from "react-google-maps/lib/places/SearchBox"; //TODO needed?
 import RaisedButton from 'material-ui/RaisedButton';
 import { Markers } from './Markers'
 import { ClusteredMarkerOverlay } from './ClusteredMarkerOverlay'
+import { MapDialog } from '../components/dialogs/MapDialog'
 
 const INPUT_STYLE = {
   boxSizing: `border-box`,
@@ -71,7 +72,10 @@ const MusicMapGoogleMap = withGoogleMap(props => {
               props.onMarkerClick(marker)
             }}
         />
-
+        { props.modalContent
+          ? <MapDialog {...props} />
+          : null
+        }
       </GoogleMap>
     )
   }

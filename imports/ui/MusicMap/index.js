@@ -25,6 +25,7 @@ export default class MusicMap extends Component {
   handleMarkerClick = this.handleMarkerClick.bind(this);
   handleClusterClick = this.handleClusterClick.bind(this);
   handleCloseClick = this.handleCloseClick.bind(this);
+  handleMapModalClose = this.handleMapModalClose.bind(this);
 
   componentWillReceiveProps(nextProps) {
     const changeMarkerView = nextProps.markerType !== this.state.markerType;
@@ -59,9 +60,13 @@ export default class MusicMap extends Component {
 
   handleMarkerClick(targetMarker) {
     const center = this.getNewCenter(targetMarker.position);
+    const targetFromState = this.state.markers.find(marker => {
+        return marker._id === targetMarker._id
+    })
     this.setState({
       center,
       overlay: undefined,
+      modalContent: targetFromState,
       markers: this.state.markers.map(marker => {
         return {
           ...marker,
@@ -71,8 +76,13 @@ export default class MusicMap extends Component {
     });
   }
 
+  handleMapModalClose() {
+    this.hideMarkers()
+  }
+
   hideMarkers() {
     this.setState({
+      modalContent: undefined,
       markers: this.state.markers.map(marker => {
         return {
           ...marker,
@@ -180,6 +190,8 @@ export default class MusicMap extends Component {
                          handleClusterClick={this.handleClusterClick}
                          onCloseClick={this.handleCloseClick}
                          onMove={this.handleMove}
+                         handleMapModalClose={this.handleMapModalClose}
+                         modalContent={this.state.modalContent}
       />
     );
   }

@@ -1,12 +1,7 @@
 import React from 'react';
-import  ReactDOM  from 'react-dom';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
 import {orange500, blue500} from 'material-ui/styles/colors';
-import {Media} from '../../../api/media.js';
-import {Events} from '../../../api/events.js';
-import YouTube from 'react-youtube';
 
 const styles = {
   floatingLabelStyle: {
@@ -18,56 +13,68 @@ const styles = {
   },
 };
 
-const opts = {
-  width: '100%',
-  playerVars: { // https://developers.google.com/youtube/player_parameters
-  }
-};
+export const PlaceDialog = (props) => {
 
+  const actions = [
+    <FlatButton
+      label="Zamknij"
+      primary={true}
+      onTouchTap={()=>props.handleClose()}
+    />,
+  ];
 
-export default class EventDialog extends React.Component {
-  state = {
-    open: false,
-  };
-
-  handleOpen = () => {
-    this.setState({open: true});
-  };
-
-  handleClose = () => {
-    this.setState({open: false});
-  };
-
-  render() {
-    const actions = [
-      <FlatButton
-        label="Zamknij"
-        primary={true}
-        onTouchTap={this.handleClose}
-      />,
-    ];
-    const videos = Media.find({eventId: this.props.eventObject._id}).fetch();
-
-    return (
-      <div ref="siema">
-        <h5 label={ `${this.props.eventObject.date} ${this.props.eventObject.name}` } onTouchTap={this.handleOpen}>{this.props.eventObject.name }</h5>
-        <Dialog
-          title={this.props.eventObject.name}
+  return <Dialog
+          title={props.name}
           actions={actions}
-          open={this.state.open}
-          onRequestClose={this.handleClose}
-          style={{zIndex: 10, paddingTop: '0px !important', top: '-156px'}}
+          open={props.open}
+          onRequestClose={()=>props.handleClose()}
+          style={{zIndex: 10, paddingTop: '0px !important', top: '-126px'}}
           repositionOnUpdate={false}
           autoScrollBodyContent={true}
         >
-          {videos.map((video, index) => {
-            return <div key={index} ref={video._id}>
-              <h1>{video.name}</h1>
-              <YouTube key={video._id}   videoId={video.youtubeId}  opts={opts}></YouTube>
-            </div>
-          })}
+
+          <div style={{ maxHeight: '550px', marginLeft: '10px'}}>
+          <h4 className="infowindow-title">{props.name}</h4>
+          <img src={props.photo} style={{maxHeight: '300px', maxWidth: '500px', margin: '20px auto', display: 'block'}}/>
+          <div style={{width: '100%', textAlign: 'right'}}>
+          <SocialIcons place = {{...props}}/>
+          </div>
+          <p>{props.description}</p>
+          <h5 className="infowindow-subtitle">Wydarzenia:</h5>
+          { false && this.props.eventsAtPlace.length > 0 ?
+            this.props.eventsAtPlace.map((eventObject, index) => {
+              return <EventDialog key={index}
+                                  eventObject={eventObject}
+                                  eventMedia={this.props.mediaAtPlace}
+              />
+            })
+            : <span>W tym miejscu nie dodano jeszcze żadnych wydarzeń</span> }
+          </div>
+
         </Dialog>
+}
+
+const SocialIcons = (props) => {
+
+    const media = ['insta', 'www', 'fb', 'youtube']
+    const iconsToDisplay = media.filter((media)=>{
+      return !!props.place[media]
+    })
+    if (iconsToDisplay.length > 0) {
+      return <div>
+        {iconsToDisplay.map((icon, index)=>{
+          return (
+            <PlaceIcon href={props.place[icon]} key = {index} icon = { icon }/>
+          )
+        })}
       </div>
-    );
-  }
+    }
+
+    return null
+}
+
+const PlaceIcon = (props) => {
+  return <a href={props.href} target='_blank' style={{marginLeft: 10}}>
+    <img key={props.key} src={`/img/resize/${props.icon}.png`} width="32px"/>
+  </a>
 }

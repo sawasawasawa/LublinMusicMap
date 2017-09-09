@@ -50,6 +50,7 @@ export default class PlaceMarker extends Component {
       <Marker
         position={{ lat: marker.position.lat, lng: marker.position.lng }}
         key={marker.name}
+        id={marker._id}
         icon = {this.getIcon(marker)}
         title={marker.name}
         onClick={onClick}
