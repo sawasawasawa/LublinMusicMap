@@ -1,8 +1,5 @@
 /* global google */
-import {
-  default as React,
-  Component
-} from 'react'
+import React from 'react'
 import {withGoogleMap, GoogleMap} from 'react-google-maps'
 import mapStylesMagenta from '../../../client/map/mapStyles-magenta.json'
 import SearchBox from 'react-google-maps/lib/places/SearchBox' // TODO needed?
@@ -28,7 +25,7 @@ const INPUT_STYLE = {
 }
 
 const MusicMapGoogleMap = withGoogleMap(props => {
-  const showPlaces = props.markerType == 'places'
+  const showPlaces = props.markerType === 'places'
   return (
     <GoogleMap
       ref={props.onMapMounted}
@@ -44,7 +41,7 @@ const MusicMapGoogleMap = withGoogleMap(props => {
           position: google.maps.ControlPosition.TOP_RIGHT
         }
       }}
-      >
+    >
       <div style={{position: 'absolute', top: '10px', right: '60px'}}>
         <RaisedButton label='Miejsca' secondary={showPlaces} onClick={props.toggleMarkersForPlaces} />
         <RaisedButton label='Nagrania' secondary={!showPlaces} onClick={props.toggleMarkersForMedia} />
@@ -57,25 +54,25 @@ const MusicMapGoogleMap = withGoogleMap(props => {
         inputPlaceholder='Podaj dokładny adres'
         inputStyle={INPUT_STYLE}
         inputClassName={'searchBox'}
-        />
+      />
       <Markers markers={props.markers}
         onCloseClick={props.onCloseClick}
         onMarkerClick={props.onMarkerClick}
         handleClusterClick={(cluster) => {
           props.handleClusterClick(cluster)
         }}
-        />
+      />
       <ClusteredMarkerOverlay
         {...props.overlay}
         center={props.center}
         handleMarkerClick={(marker) => {
           props.onMarkerClick(marker)
         }}
-        />
+      />
       { props.modalContent
-          ? <MapDialog {...props} />
-          : null
-        }
+        ? <MapDialog {...props} />
+        : null
+      }
     </GoogleMap>
   )
 }

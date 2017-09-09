@@ -30,7 +30,7 @@ export const PlaceDialog = (props) => {
     style={{zIndex: 10, paddingTop: '0px !important', top: '-126px'}}
     repositionOnUpdate={false}
     autoScrollBodyContent
-        >
+  >
 
     <div style={{ maxHeight: '550px', marginLeft: '10px'}}>
       <h4 className='infowindow-title'>{props.name}</h4>
@@ -41,13 +41,13 @@ export const PlaceDialog = (props) => {
       <p>{props.description}</p>
       <h5 className='infowindow-subtitle'>Wydarzenia:</h5>
       { props.eventsAtPlace.length > 0
-            ? props.eventsAtPlace.map((eventObject, index) => {
-              return <EventDialog key={index}
-                eventObject={eventObject}
-                eventMedia={props.mediaAtPlace}
-              />
-            })
-            : <span>W tym miejscu nie dodano jeszcze żadnych wydarzeń</span> }
+        ? props.eventsAtPlace.map((eventObject, index) => {
+          return <EventDialog key={index}
+            eventObject={eventObject}
+            eventMedia={props.mediaAtPlace}
+          />
+        })
+        : <span>W tym miejscu nie dodano jeszcze żadnych wydarzeń</span> }
     </div>
 
   </Dialog>
@@ -73,6 +73,6 @@ const SocialIcons = (props) => {
 
 const PlaceIcon = (props) => {
   return <a href={props.href} target='_blank' style={{marginLeft: 10}}>
-    <img key={props.key} src={`/img/resize/${props.icon}.png`} width='32px' />
+    <img src={`/img/resize/${props.icon}.png`} width='32px' />
   </a>
 }

@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { render } from 'react-dom';
-import Drawer from 'material-ui/Drawer';
-import RaisedButton from 'material-ui/RaisedButton';
+import React, { Component } from 'react'
+import { render } from 'react-dom'
+import Drawer from 'material-ui/Drawer'
+import RaisedButton from 'material-ui/RaisedButton'
 import AddNewPlaceDialog from './components/dialogs/AddPlaceDialog'
 import AddNewEventDialog from './components/dialogs/AddEventDialog'
 import AddMediaDialog from './components/dialogs/AddMediaDialog'
@@ -11,23 +11,23 @@ import CreditsDialog from './components/dialogs/CreditsDialog'
 // import AddNewPlace from './AddNewPlace'
 
 export default class Menu extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {open: false};
+  constructor (props) {
+    super(props)
+    this.state = {open: false}
   }
 
   openMenu = () => {
-    $('#header-background').css({ transform: 'rotateZ(7deg)' });
-    $('#legend-paper').css({ transform: 'rotateZ(7deg)' });
-    setTimeout(()=>{
-      this.setState({open: !this.state.open});
-    },100)
+    $('#header-background').css({ transform: 'rotateZ(7deg)' })
+    $('#legend-paper').css({ transform: 'rotateZ(7deg)' })
+    setTimeout(() => {
+      this.setState({open: !this.state.open})
+    }, 100)
   }
 
   hideMenu = () => {
-    this.setState({open: !this.state.open});
+    this.setState({open: !this.state.open})
     $('#header-background').css({ transform: 'rotateZ(45deg)' })
-    $('#legend-paper').css({ transform: 'rotateZ(45deg)' });
+    $('#legend-paper').css({ transform: 'rotateZ(45deg)' })
   }
 
   addNewPlace = () => {
@@ -35,43 +35,43 @@ export default class Menu extends Component {
       .css('opacity', 1)
       .animate({'right': '0%'})
       .focus()
-    this.hideMenu();
+    this.hideMenu()
   }
 
-  render() {
+  render () {
     return (
-      <div id="menu" className={'bottomButton'}>
+      <div id='menu' className={'bottomButton'}>
         <RaisedButton
-          id="openMenuButton"
-          label="Menu"
+          id='openMenuButton'
+          label='Menu'
           onTouchTap={this.openMenu}
-          secondary={true}
-          backgroundColor={"#EE3858"}
+          secondary
+          backgroundColor={'#EE3858'}
         />
         <Drawer open={this.state.open} className={'menu--drawer'}
-                containerStyle={{
-                  background: 'transparent',
-                  boxShadow: 0
-                }}>
-          <div id="menu--items">
-            <AllEventsDialog {...this.props}/>
-            <AllMediaDialog {...this.props}/>
+          containerStyle={{
+            background: 'transparent',
+            boxShadow: 0
+          }}>
+          <div id='menu--items'>
+            <AllEventsDialog {...this.props} />
+            <AllMediaDialog {...this.props} />
             <br />
-            <AddMediaDialog places={this.props.places}/>
-            <AddNewPlaceDialog places={this.props.places}/>
-            <AddNewEventDialog places={this.props.places}/>
+            <AddMediaDialog places={this.props.places} />
+            <AddNewPlaceDialog places={this.props.places} />
+            <AddNewEventDialog places={this.props.places} />
             <br />
             <br />
             <CreditsDialog />
           </div>
           <RaisedButton className={'bottomButton'}
-                        label="Ukryj"
-                        onTouchTap={this.hideMenu}
-                        secondary={true}
-                        backgroundColor={"#EE3858"}
+            label='Ukryj'
+            onTouchTap={this.hideMenu}
+            secondary
+            backgroundColor={'#EE3858'}
           />
         </Drawer>
       </div>
-    );
+    )
   }
 }

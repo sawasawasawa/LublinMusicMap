@@ -1,35 +1,35 @@
-import React from 'react';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
-import {orange500, blue500} from 'material-ui/styles/colors';
-import { Media } from '../../../api/media';
-import ReactTable from 'react-table';
+import React from 'react'
+import Dialog from 'material-ui/Dialog'
+import FlatButton from 'material-ui/FlatButton'
+import RaisedButton from 'material-ui/RaisedButton'
+import {orange500, blue500} from 'material-ui/styles/colors'
+import { Media } from '../../../api/media'
+import ReactTable from 'react-table'
 import 'react-table/react-table.css'
-import EventDialog from '../dialogs/EventDialog';
+import EventDialog from '../dialogs/EventDialog'
 
 export default class TableDialog extends React.Component {
   state = {
-    open: false,
+    open: false
   }
 
   handleOpen = () => {
-    this.state.media = Media.find().fetch();
-    this.setState({open: true});
+    this.state.media = Media.find().fetch()
+    this.setState({open: true})
   };
 
   handleClose = () => {
-    this.setState({open: false});
+    this.setState({open: false})
   };
 
-  render() {
+  render () {
     const actions = [
       <FlatButton
-        label="Zamknij"
-        primary={true}
+        label='Zamknij'
+        primary
         onTouchTap={this.handleClose}
-      />,
-    ];
+      />
+    ]
     return (
       <div>
         <RaisedButton label={this.props.label} onTouchTap={this.handleOpen} />
@@ -40,7 +40,7 @@ export default class TableDialog extends React.Component {
           open={this.state.open}
           onRequestClose={this.handleClose}
           style={{zIndex: 10}}
-          autoScrollBodyContent={true}
+          autoScrollBodyContent
           contentStyle={{width: '100%', maxWidth: '1000px'}}
         >
           <div className='table-wrap'>
@@ -55,7 +55,6 @@ export default class TableDialog extends React.Component {
           </div>
         </Dialog>
       </div>
-    );
+    )
   }
 }
-

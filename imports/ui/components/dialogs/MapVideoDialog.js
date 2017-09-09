@@ -29,12 +29,12 @@ export const MapVideoDialog = (props) => {
       style={{zIndex: 10, paddingTop: '0px !important', top: '-156px'}}
       repositionOnUpdate={false}
       autoScrollBodyContent
-        >
+    >
       <h1>{video.name}</h1>
       {video.youtubeId
-            ? <YouTube key={video._id} videoId={video.youtubeId} opts={opts} />
-            : 'Coś poszło nie tak...'
-          }
+        ? <YouTube key={video._id} videoId={video.youtubeId} opts={opts} />
+        : 'Coś poszło nie tak...'
+      }
     </Dialog>
-    ) : null
+  ) : null
 }

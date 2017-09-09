@@ -3,7 +3,6 @@ import {
   Component
 } from 'react'
 import { Marker } from 'react-google-maps'
-import PlaceInfoWindow from '../common/PlaceInfoWindow'
 
 export default class PlaceMarker extends Component {
   getIcon (marker) {
@@ -42,9 +41,6 @@ export default class PlaceMarker extends Component {
 
   render () {
     const marker = this.props.marker
-    const index = this.props.index
-    const onClick = () => this.props.onMarkerClick(marker)
-    const onCloseClick = () => this.props.onCloseClick(marker)
 
     return (
       <Marker
@@ -53,12 +49,10 @@ export default class PlaceMarker extends Component {
         id={marker._id}
         icon={this.getIcon(marker)}
         title={marker.name}
-        onClick={onClick}
+        onClick={() => this.props.onMarkerClick(marker)}
         mediaAtPlace={this.props.mediaAtPlace}
         eventsAtPlace={this.props.eventsAtPlace}
-      >
-        {marker.showInfo && <PlaceInfoWindow {...this.props} />}
-      </Marker>
+      />
     )
   }
 }

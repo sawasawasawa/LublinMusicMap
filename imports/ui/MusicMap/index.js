@@ -1,17 +1,16 @@
 /* global google */
 import {
   default as React,
-  Component,
-} from "react";
+  Component
+} from 'react'
 import MusicMapGoogleMap from './MusicMapGoogleMap'
 
 const searchBounds = new google.maps.LatLngBounds(
   new google.maps.LatLng(51.197568, 22.733813),
   new google.maps.LatLng(51.288109, 22.4356302)
-);
+)
 
 export default class MusicMap extends Component {
-
   state = {
     bounds: searchBounds,
     markers: this.props.markers,
@@ -27,8 +26,8 @@ export default class MusicMap extends Component {
   handleCloseClick = this.handleCloseClick.bind(this);
   handleMapModalClose = this.handleMapModalClose.bind(this);
 
-  componentWillReceiveProps(nextProps) {
-    const changeMarkerView = nextProps.markerType !== this.state.markerType;
+  componentWillReceiveProps (nextProps) {
+    const changeMarkerView = nextProps.markerType !== this.state.markerType
     if (changeMarkerView) {
       this.setState({
         markers: this.prepareMarkers(nextProps.markerType),
@@ -37,7 +36,7 @@ export default class MusicMap extends Component {
     }
   }
 
-  prepareMarkers(markerType) {
+  prepareMarkers (markerType) {
     if (markerType == 'media') {
       return this.props.media.map(this.addPosition)
     } else {
@@ -46,33 +45,33 @@ export default class MusicMap extends Component {
   }
 
   addPosition = (mediaFile) => {
-      return {
-        ...mediaFile,
-        position: this.props.places.find((place) => {
-          return mediaFile.placeId == place._id
-        }).position
-      }
+    return {
+      ...mediaFile,
+      position: this.props.places.find((place) => {
+        return mediaFile.placeId == place._id
+      }).position
+    }
   }
 
-  handleMapMounted(map) {
-    this._map = map;
+  handleMapMounted (map) {
+    this._map = map
   }
 
-  getModalData(targetMarker) {
+  getModalData (targetMarker) {
     const modalData = this.state.markers.find(marker => {
       return marker._id === targetMarker._id
     })
     modalData.eventsAtPlace = this.props.events
-      ? this.props.events.filter((e)=>{return e.placeId ==targetMarker._id})
+      ? this.props.events.filter((e) => { return e.placeId == targetMarker._id })
       : []
     modalData.mediaAtPlace = this.props.media
-      ? this.props.media.filter((e)=>{return e.placeId == targetMarker._id})
+      ? this.props.media.filter((e) => { return e.placeId == targetMarker._id })
       : []
     return modalData
   }
 
-  handleMarkerClick(targetMarker) {
-    const center = this.getNewCenter(targetMarker.position);
+  handleMarkerClick (targetMarker) {
+    const center = this.getNewCenter(targetMarker.position)
     this.setState({
       center,
       overlay: undefined,
@@ -80,29 +79,29 @@ export default class MusicMap extends Component {
       markers: this.state.markers.map(marker => {
         return {
           ...marker,
-          showInfo: marker._id === targetMarker._id,
-        };
-      }),
-    });
+          showInfo: marker._id === targetMarker._id
+        }
+      })
+    })
   }
 
-  handleMapModalClose() {
+  handleMapModalClose () {
     this.hideMarkers()
   }
 
-  hideMarkers() {
+  hideMarkers () {
     this.setState({
       modalContent: undefined,
       markers: this.state.markers.map(marker => {
         return {
           ...marker,
-          showInfo: false,
-        };
-      }),
-    });
+          showInfo: false
+        }
+      })
+    })
   }
 
-  handleClusterClick(cluster) {
+  handleClusterClick (cluster) {
     this.hideMarkers()
     const position = {
       lat: cluster.markers_[0].position.lat(),
@@ -114,54 +113,54 @@ export default class MusicMap extends Component {
         open: true,
         markers: this.addIdsToClusterMarkers(cluster.markers_)
       }
-    });
+    })
   }
 
   addIdsToClusterMarkers = (markers) => {
-    return markers.map((marker)=>{
+    return markers.map((marker) => {
       return {
         ...marker,
-        _id: this.state.markers.find((m)=>{
+        _id: this.state.markers.find((m) => {
           return m.name == marker.title
         })._id
       }
     })
   }
 
-  getNewCenter(position) {
+  getNewCenter (position) {
     return {
-      lat: ($.isFunction(position.lat) && position.lat())  || position.lat - 0.9,
+      lat: ($.isFunction(position.lat) && position.lat()) || position.lat,
       lng: ($.isFunction(position.lng) && position.lng()) || position.lng
-    };
+    }
   }
 
-  handleCloseClick(targetMarker) {
+  handleCloseClick (targetMarker) {
     this.setState({
       markers: this.state.markers.map(marker => {
         if (marker === targetMarker) {
           return {
             ...marker,
-            showInfo: false,
-          };
+            showInfo: false
+          }
         }
-        return marker;
-      }),
-    });
+        return marker
+      })
+    })
   }
 
-  handleSearchBoxMounted(searchBox) {
-    this._searchBox = searchBox;
+  handleSearchBoxMounted (searchBox) {
+    this._searchBox = searchBox
   }
 
-  handlePlacesChanged() {
-    const places = this._searchBox.getPlaces();
+  handlePlacesChanged () {
+    const places = this._searchBox.getPlaces()
     const place = places[0]
 
     const placeObject = {
       name: place.name || 'NONAME',
       position: {
         lat: place.geometry.location.lat(),
-        lng: place.geometry.location.lng(),
+        lng: place.geometry.location.lng()
       }
     }
     Meteor.call('addPlace', placeObject)
@@ -175,34 +174,32 @@ export default class MusicMap extends Component {
     this.props.toggleMarkersFor('media')
   }
 
-  render() {
+  render () {
     return (
-      <MusicMapGoogleMap id={"musicMap"} className={"musicMap"}
-                         containerElement={
-                           <div id='map--container' style={{height: `100%`}}/>
-                         }
-                         mapElement={
-                           <div id='map--element' style={{height: `100%`}}>
-
-                           </div>
-                         }
-                         {...this.props}
-                         toggleMarkersForPlaces={this.toggleMarkersForPlaces}
-                         toggleMarkersForMedia={this.toggleMarkersForMedia}
-                         center={this.state.center}
-                         onMapMounted={this.handleMapMounted}
-                         onSearchBoxMounted={this.handleSearchBoxMounted}
-                         bounds={this.state.bounds}
-                         onPlacesChanged={this.handlePlacesChanged}
-                         markers={this.state.markers}
-                         overlay={this.state.overlay}
-                         onMarkerClick={this.handleMarkerClick}
-                         handleClusterClick={this.handleClusterClick}
-                         onCloseClick={this.handleCloseClick}
-                         onMove={this.handleMove}
-                         handleMapModalClose={this.handleMapModalClose}
-                         modalContent={this.state.modalContent}
+      <MusicMapGoogleMap id={'musicMap'} className={'musicMap'}
+        containerElement={
+          <div id='map--container' style={{height: `100%`}} />
+        }
+        mapElement={
+          <div id='map--element' style={{height: `100%`}} />
+        }
+        {...this.props}
+        toggleMarkersForPlaces={this.toggleMarkersForPlaces}
+        toggleMarkersForMedia={this.toggleMarkersForMedia}
+        center={this.state.center}
+        onMapMounted={this.handleMapMounted}
+        onSearchBoxMounted={this.handleSearchBoxMounted}
+        bounds={this.state.bounds}
+        onPlacesChanged={this.handlePlacesChanged}
+        markers={this.state.markers}
+        overlay={this.state.overlay}
+        onMarkerClick={this.handleMarkerClick}
+        handleClusterClick={this.handleClusterClick}
+        onCloseClick={this.handleCloseClick}
+        onMove={this.handleMove}
+        handleMapModalClose={this.handleMapModalClose}
+        modalContent={this.state.modalContent}
       />
-    );
+    )
   }
 }
