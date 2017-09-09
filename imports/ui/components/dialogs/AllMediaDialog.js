@@ -40,10 +40,6 @@ export default class AllMediaDialog extends React.Component {
       maxWidth: 60
     }, {
       Header: 'Tytuł',
-      accessor: 'name',
-      Cell: (media, index) => (media.original.name)
-    }, {
-      Header: 'Nagranie',
       accessor: 'videoId',
       Cell: (video, index) => (<VideoDialog key={index} video={video.original} />)
     }, {

@@ -6,7 +6,7 @@ import {orange500} from 'material-ui/styles/colors'
 import SelectField from 'material-ui/SelectField'
 import Select from '../common/Select'
 import MenuItem from 'material-ui/MenuItem'
-import { Events } from '../../../api/events.js'
+import {Events} from '../../../api/events.js'
 import TextInput from '../common/TextInput'
 import PlaceSelect from '../common/PlaceSelect'
 
@@ -30,17 +30,28 @@ export default class AddMediaDialog extends React.Component {
   addMedia = () => {
     const mediaObject = {
       name: this.state.name,
-      mediaType: this.state.mediaType,
-      videoLink: this.state.videoLink,
-      videoId: this.state.videoLink.replace(/http.*watch.*=/gi, ''),
       placeId: this.state.placeId,
       eventId: this.state.eventId,
+      mediaType: this.state.mediaType,
       description: this.state.description
     }
-    this.handleClose()
+
+    if (this.state.mediaType === 'youtubeVideo') {
+      mediaObject.videoLink = this.state.videoLink
+      mediaObject.videoId = this.state.videoLink.replace(/http.*watch.*=/gi, '')
+    }
+
     Meteor.call('addMedia', mediaObject)
+
+    if (this.state.mediaType === 'mp3' && this.state.mp3 && this.state.uploadedFile) {
+      mediaObject.mp3 = this.state.mp3
+      mediaObject.filename = this.state.filename
+      Meteor.call('uploadMp3File', this.state.mp3.name, this.state.uploadedFile)
+    }
+
+    this.handleClose()
     // TODO get rid of this reload by utilizing createContainer properly
-    location.reload()
+    // location.reload()
   }
 
   handlePlaceChange = (event, index, selectedPlace) => {
@@ -70,9 +81,9 @@ export default class AddMediaDialog extends React.Component {
     })
 
     const mediaTypes = [
-      <MenuItem key={1} value={'youtubeVideo'} primaryText={'Video - Youtube'} />,
-      <MenuItem key={2} value={'soundCloudMp3'} primaryText={'MP3 - SoundCloud'} disabled />,
-      <MenuItem key={3} value={'picture'} primaryText={'Zdjęcie'} disabled />
+      <MenuItem key={1} value={'youtubeVideo'} primaryText={'Youtube - link do video'} />,
+      <MenuItem key={2} value={'mp3'} primaryText={'Prześlij mp3'} />,
+      <MenuItem key={3} value={'picture'} primaryText={'Prześlij zdjęcie'} disabled />
     ]
 
     const actions = [
@@ -84,7 +95,7 @@ export default class AddMediaDialog extends React.Component {
       <FlatButton
         label='Dodaj media'
         primary
-        disabled={!(this.state.placeId && this.state.videoLink)}
+        disabled={!(this.state.placeId && (this.state.videoLink || this.state.mp3))}
         onTouchTap={this.addMedia}
       />
     ]
@@ -113,7 +124,7 @@ export default class AddMediaDialog extends React.Component {
             disabled={!this.state.placeId}
             selectOptions={this.state.placeEvents || []}
           >
-            { events }
+            {events}
           </Select>
           <br />
           <SelectField
@@ -123,18 +134,49 @@ export default class AddMediaDialog extends React.Component {
             floatingLabelStyle={{color: orange500}}
             maxHeight={400}
             style={{width: '100%'}}
-            disabled={!this.state.placeId}
+            disabled={false}
+            ORIGdisabled={!this.state.placeId}
           >
-            { mediaTypes }
+            {mediaTypes}
           </SelectField>
+          <br />
+          {
+            this.state.mediaType === 'mp3'
+              ? <div>
+                <RaisedButton
+                  containerElement='label'
+                  label='Prześlij plik mp3'>
+                  <input
+                    ref={(input) => {
+                      this.mp3Input = input
+                    }}
+                    type='file'
+                    style={{display: 'none'}}
+                    onChange={(event, template) => {
+                      var file = event.currentTarget.files[0]
+                      var reader = new FileReader()
+                      reader.onload = (fileLoadEvent) => {
+                        this.setState({mp3: file, uploadedFile: reader.result})
+                      }
+                      reader.readAsBinaryString(file)
+                    }}
+                  />
+                </RaisedButton>
+              </div>
+              : null
+          }
+          {
+            this.state.mediaType === 'youtubeVideo'
+              ? <TextInput inputId='videoLink_input'
+                inputLabel='YouTube video link'
+                onInputChange={this.onInputChange}
+                disabled={!this.state.placeId}
+              />
+              : null
+          }
           <br />
           <TextInput inputId='name_input'
             inputLabel='Nazwa pliku'
-            onInputChange={this.onInputChange}
-            disabled={!this.state.placeId}
-          />
-          <TextInput inputId='videoLink_input'
-            inputLabel='YouTube video link'
             onInputChange={this.onInputChange}
             disabled={!this.state.placeId}
           />

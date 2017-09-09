@@ -1,4 +1,4 @@
-//TODO: sort it out
+// TODO: sort it out
 // import { Meteor } from 'meteor/meteor'
 // import {Facebook, FacebookApiException} from 'fb'
 //
