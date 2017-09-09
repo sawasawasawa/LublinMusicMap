@@ -1,8 +1,8 @@
 import {
   default as React,
-  Component,
-} from "react";
-import {OverlayView} from "react-google-maps";
+  Component
+} from 'react'
+import {OverlayView} from 'react-google-maps'
 
 export const ClusteredMarkerOverlay = (props) => {
   return <OverlayView
@@ -10,18 +10,18 @@ export const ClusteredMarkerOverlay = (props) => {
     position={(props && props.position) || props.center}
   >
     <div
-      className="overlay-list"
+      className='overlay-list'
       style={{
         backgroundColor: '#FFF',
-        display: props.open ? 'inline-block' : 'none',
+        display: props.open ? 'inline-block' : 'none'
       }}
     >
       <ul>
         {props.markers && props.markers.map((marker, index) => {
           return <PlaceRow
-            marker = {marker}
-            key = {index}
-            handleMarkerClick = {props.handleMarkerClick}
+            marker={marker}
+            key={index}
+            handleMarkerClick={props.handleMarkerClick}
           />
         })}
       </ul>
@@ -30,11 +30,10 @@ export const ClusteredMarkerOverlay = (props) => {
 }
 
 const PlaceRow = (props) => {
-  return  <li key={props.index} onClick={()=>{
+  return <li key={props.index} onClick={() => {
     props.handleMarkerClick(props.marker)
   }}>
-    <img src={props.marker.icon.url} width="32px" />
+    <img src={props.marker.icon.url} width='32px' />
     <h4>{props.marker.title}</h4>
   </li>
 }
-

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import { PlaceDialog } from './PlaceDialog'
 import { RecordDialog } from './RecordDialog'
 
