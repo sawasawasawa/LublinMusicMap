@@ -1,7 +1,4 @@
-import {
-  default as React,
-  Component
-} from 'react'
+import React from 'react'
 import {OverlayView} from 'react-google-maps'
 
 export const ClusteredMarkerOverlay = (props) => {

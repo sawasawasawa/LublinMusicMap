@@ -21,13 +21,13 @@ export default class AllMediaDialog extends React.Component {
 
   getPlaceName = (placeId) => {
     const places = this.props.places
-    const selectedPlace = places.find((place) => { return place._id == placeId })
+    const selectedPlace = places.find((place) => { return place._id === placeId })
     return selectedPlace ? selectedPlace.name : undefined
   }
 
   getEvent = (eventId) => {
     return this.props.events && this.props.events.find((event) => {
-      return event._id == eventId
+      return event._id === eventId
     })
   }
 

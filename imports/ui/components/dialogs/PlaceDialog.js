@@ -1,18 +1,7 @@
 import React from 'react'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
-import {orange500, blue500} from 'material-ui/styles/colors'
 import EventDialog from '../dialogs/EventDialog'
-
-const styles = {
-  floatingLabelStyle: {
-    color: orange500,
-    marginRight: '24px'
-  },
-  floatingLabelFocusStyle: {
-    color: blue500
-  }
-}
 
 export const PlaceDialog = (props) => {
   const actions = [
@@ -32,7 +21,7 @@ export const PlaceDialog = (props) => {
     autoScrollBodyContent
   >
 
-    <div style={{ maxHeight: '550px', marginLeft: '10px'}}>
+    <div style={{maxHeight: '550px', marginLeft: '10px'}}>
       <h4 className='infowindow-title'>{props.name}</h4>
       <img src={props.photo} style={{maxHeight: '300px', maxWidth: '500px', margin: '20px auto', display: 'block'}} />
       <div style={{width: '100%', textAlign: 'right'}}>
@@ -40,14 +29,14 @@ export const PlaceDialog = (props) => {
       </div>
       <p>{props.description}</p>
       <h5 className='infowindow-subtitle'>Wydarzenia:</h5>
-      { props.eventsAtPlace.length > 0
+      {props.eventsAtPlace.length > 0
         ? props.eventsAtPlace.map((eventObject, index) => {
           return <EventDialog key={index}
             eventObject={eventObject}
             eventMedia={props.mediaAtPlace}
           />
         })
-        : <span>W tym miejscu nie dodano jeszcze żadnych wydarzeń</span> }
+        : <span>W tym miejscu nie dodano jeszcze żadnych wydarzeń</span>}
     </div>
 
   </Dialog>

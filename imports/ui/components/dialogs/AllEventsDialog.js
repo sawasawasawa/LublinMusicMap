@@ -19,7 +19,7 @@ export default class AllEventsDialog extends React.Component {
 
   getPlaceName = (placeId) => {
     const places = this.props.places
-    const selectedPlace = places.find((place) => { return place._id == placeId })
+    const selectedPlace = places.find((place) => { return place._id === placeId })
     return selectedPlace ? selectedPlace.name : undefined
   }
 
@@ -33,7 +33,7 @@ export default class AllEventsDialog extends React.Component {
     }, {
       Header: 'Nazwa wydarzenia',
       accessor: 'name',
-      Cell: (event, index) => <EventDialog key={index} eventObject={event.original} eventMedia={this.props.media.filter((media) => { return media.eventId == event._id })} />
+      Cell: (event, index) => <EventDialog key={index} eventObject={event.original} eventMedia={this.props.media.filter((media) => { return media.eventId === event._id })} />
     }, {
       Header: 'Miejsce',
       accessor: 'placeId',

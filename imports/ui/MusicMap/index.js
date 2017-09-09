@@ -37,7 +37,7 @@ export default class MusicMap extends Component {
   }
 
   prepareMarkers (markerType) {
-    if (markerType == 'media') {
+    if (markerType === 'media') {
       return this.props.media.map(this.addPosition)
     } else {
       return this.props.places
@@ -48,7 +48,7 @@ export default class MusicMap extends Component {
     return {
       ...mediaFile,
       position: this.props.places.find((place) => {
-        return mediaFile.placeId == place._id
+        return mediaFile.placeId === place._id
       }).position
     }
   }
@@ -62,10 +62,10 @@ export default class MusicMap extends Component {
       return marker._id === targetMarker._id
     })
     modalData.eventsAtPlace = this.props.events
-      ? this.props.events.filter((e) => { return e.placeId == targetMarker._id })
+      ? this.props.events.filter((e) => { return e.placeId === targetMarker._id })
       : []
     modalData.mediaAtPlace = this.props.media
-      ? this.props.media.filter((e) => { return e.placeId == targetMarker._id })
+      ? this.props.media.filter((e) => { return e.placeId === targetMarker._id })
       : []
     return modalData
   }
@@ -121,7 +121,7 @@ export default class MusicMap extends Component {
       return {
         ...marker,
         _id: this.state.markers.find((m) => {
-          return m.name == marker.title
+          return m.name === marker.title
         })._id
       }
     })

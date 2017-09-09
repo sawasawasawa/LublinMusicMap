@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { render } from 'react-dom'
 import Drawer from 'material-ui/Drawer'
 import RaisedButton from 'material-ui/RaisedButton'
 import AddNewPlaceDialog from './components/dialogs/AddPlaceDialog'
@@ -8,7 +7,6 @@ import AddMediaDialog from './components/dialogs/AddMediaDialog'
 import AllMediaDialog from './components/dialogs/AllMediaDialog'
 import AllEventsDialog from './components/dialogs/AllEventsDialog'
 import CreditsDialog from './components/dialogs/CreditsDialog'
-// import AddNewPlace from './AddNewPlace'
 
 export default class Menu extends Component {
   constructor (props) {
@@ -28,14 +26,6 @@ export default class Menu extends Component {
     this.setState({open: !this.state.open})
     $('#header-background').css({ transform: 'rotateZ(45deg)' })
     $('#legend-paper').css({ transform: 'rotateZ(45deg)' })
-  }
-
-  addNewPlace = () => {
-    $('.searchBox').css('right', '-100%')
-      .css('opacity', 1)
-      .animate({'right': '0%'})
-      .focus()
-    this.hideMenu()
   }
 
   render () {

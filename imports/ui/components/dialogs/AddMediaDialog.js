@@ -2,24 +2,13 @@ import React from 'react'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
-import {orange500, blue500} from 'material-ui/styles/colors'
+import {orange500} from 'material-ui/styles/colors'
 import SelectField from 'material-ui/SelectField'
 import Select from '../common/Select'
 import MenuItem from 'material-ui/MenuItem'
-import { Media } from '../../../api/media.js'
-import { Places } from '../../../api/places.js'
 import { Events } from '../../../api/events.js'
 import TextInput from '../common/TextInput'
 import PlaceSelect from '../common/PlaceSelect'
-const styles = {
-  floatingLabelStyle: {
-    color: orange500,
-    marginRight: '24px'
-  },
-  floatingLabelFocusStyle: {
-    color: blue500
-  }
-}
 
 export default class AddMediaDialog extends React.Component {
   state = {
@@ -31,7 +20,6 @@ export default class AddMediaDialog extends React.Component {
   }
 
   handleOpen = () => {
-    let mediaSub = Meteor.subscribe('media')
     this.setState({open: true})
   };
 

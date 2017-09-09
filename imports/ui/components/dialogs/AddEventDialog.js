@@ -3,10 +3,6 @@ import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
 import {orange500, blue500} from 'material-ui/styles/colors'
-import SelectField from 'material-ui/SelectField'
-import MenuItem from 'material-ui/MenuItem'
-import { Places } from '../../../api/places.js'
-import { Events } from '../../../api/events.js'
 import DatePicker from 'material-ui/DatePicker'
 import PlaceSelect from '../common/PlaceSelect'
 import TextInput from '../common/TextInput'
@@ -32,13 +28,11 @@ export default class AddNewEventDialog extends React.Component {
   }
 
   handleDateChange = () => (justNull, selectedDate) => {
-    // console.log('¯\_(ツ)_/¯: event, index, selectedDate', selectedDate);
     this.setState({selectedDate})
   }
 
   handleOpen = () => {
     this.setState({open: true})
-    // console.log(Places.find().fetch())
   };
 
   handleClose = () => {
@@ -46,7 +40,6 @@ export default class AddNewEventDialog extends React.Component {
   };
 
   addEvent = (e) => {
-    // console.log('¯\_(ツ)_/¯: e', e);
     const eventObject = {
       name: this.state.name,
       placeId: this.state.selectedPlace

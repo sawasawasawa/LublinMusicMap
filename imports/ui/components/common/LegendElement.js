@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import {createContainer} from 'meteor/react-meteor-data'
 import Paper from 'material-ui/Paper'
 
 export class LegendElement extends Component {

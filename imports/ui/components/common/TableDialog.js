@@ -2,11 +2,9 @@ import React from 'react'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
-import {orange500, blue500} from 'material-ui/styles/colors'
 import { Media } from '../../../api/media'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
-import EventDialog from '../dialogs/EventDialog'
 
 export default class TableDialog extends React.Component {
   state = {

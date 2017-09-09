@@ -1,3 +1,4 @@
+/* global google */
 import {
   default as React,
   Component

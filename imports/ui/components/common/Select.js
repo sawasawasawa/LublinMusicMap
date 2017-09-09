@@ -1,5 +1,5 @@
 import React from 'react'
-import {orange500, blue500} from 'material-ui/styles/colors'
+import {orange500} from 'material-ui/styles/colors'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 

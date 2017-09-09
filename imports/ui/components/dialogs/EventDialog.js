@@ -1,22 +1,7 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
-import RaisedButton from 'material-ui/RaisedButton'
-import {orange500, blue500} from 'material-ui/styles/colors'
-import {Media} from '../../../api/media.js'
-import {Events} from '../../../api/events.js'
 import YouTube from 'react-youtube'
-
-const styles = {
-  floatingLabelStyle: {
-    color: orange500,
-    marginRight: '24px'
-  },
-  floatingLabelFocusStyle: {
-    color: blue500
-  }
-}
 
 const opts = {
   width: '100%',
