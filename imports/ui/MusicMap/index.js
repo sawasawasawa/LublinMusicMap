@@ -58,15 +58,25 @@ export default class MusicMap extends Component {
     this._map = map;
   }
 
+  getModalData(targetMarker) {
+    const modalData = this.state.markers.find(marker => {
+      return marker._id === targetMarker._id
+    })
+    modalData.eventsAtPlace = this.props.events
+      ? this.props.events.filter((e)=>{return e.placeId ==targetMarker._id})
+      : []
+    modalData.mediaAtPlace = this.props.media
+      ? this.props.media.filter((e)=>{return e.placeId == targetMarker._id})
+      : []
+    return modalData
+  }
+
   handleMarkerClick(targetMarker) {
     const center = this.getNewCenter(targetMarker.position);
-    const targetFromState = this.state.markers.find(marker => {
-        return marker._id === targetMarker._id
-    })
     this.setState({
       center,
       overlay: undefined,
-      modalContent: targetFromState,
+      modalContent: this.getModalData(targetMarker),
       markers: this.state.markers.map(marker => {
         return {
           ...marker,

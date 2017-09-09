@@ -54,6 +54,8 @@ export default class PlaceMarker extends Component {
         icon = {this.getIcon(marker)}
         title={marker.name}
         onClick={onClick}
+        mediaAtPlace={ this.props.mediaAtPlace }
+        eventsAtPlace={ this.props.eventsAtPlace }
       >
         {marker.showInfo && <PlaceInfoWindow {...this.props}/>}
       </Marker>
