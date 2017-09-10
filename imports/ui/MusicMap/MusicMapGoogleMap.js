@@ -42,7 +42,7 @@ const MusicMapGoogleMap = withGoogleMap(props => {
         }
       }}
     >
-      <div style={{position: 'absolute', top: '10px', right: '60px'}}>
+      <div id='mapButtons'>
         <RaisedButton label='Miejsca' secondary={showPlaces} onClick={props.toggleMarkersForPlaces} />
         <RaisedButton label='Nagrania' secondary={!showPlaces} onClick={props.toggleMarkersForMedia} />
       </div>

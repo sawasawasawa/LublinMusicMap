@@ -9,7 +9,7 @@ import MenuItem from 'material-ui/MenuItem'
 import {Events} from '../../../api/events.js'
 import TextInput from '../common/TextInput'
 import PlaceSelect from '../common/PlaceSelect'
-import { normalizeStringToURLPath } from "../../../helpers";
+import { normalizeStringToURLPath } from '../../../helpers'
 
 export default class AddMediaDialog extends React.Component {
   state = {

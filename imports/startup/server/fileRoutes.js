@@ -12,7 +12,7 @@ Picker.route('/images/tmp/:filename', function (params, request, response, next)
     response.end(data)
   } catch (err) {
     if (err.code === 'ENOENT') {
-      console.log("_______ filePath", filePath);
+      console.log('_______ filePath', filePath)
       console.log('File not found! filename:', params.filename)
     } else {
       console.log('batman: error', error)

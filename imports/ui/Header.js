@@ -27,13 +27,14 @@ export class Header extends Component {
 
     return (
       <header>
+        <meta name='viewport' content='width=device-width, initial-scale=1' />
         <div id={'moving-sidebars'}>
           <h1 className={'title'}><span className='title-strong' >Lublin</span><br />Muzyczna<br />Mapa<br /></h1>
           <div >
             <Paper id={'header-background'} zDepth={5} style={{ backgroundColor: '#313131' }} />
             <div id='footer-background' style={footerBackgroundStyle}>
               <Paper id='legend-paper' zDepth={2} style={legendPaperStyle} />
-              <Legend markerType = {this.props.markerType} />
+              <Legend markerType={this.props.markerType} />
             </div>
           </div>
         </div>

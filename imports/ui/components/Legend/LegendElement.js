@@ -15,8 +15,8 @@ export class LegendElement extends Component {
 
     return (
       <div className='legend-element'
-           onMouseOver={()=>{this.setState({hover: true})}}
-           onMouseLeave={()=>{this.setState({hover: false})}}
+        onMouseOver={() => { this.setState({hover: true}) }}
+        onMouseLeave={() => { this.setState({hover: false}) }}
       >
         <Paper style={style} zDepth={5} circle ><img src={this.props.image} width='24px' /></Paper>
         <div className='legend-tooltip'>{

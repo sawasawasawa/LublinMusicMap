@@ -4,6 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import AddNewPlaceDialog from './components/dialogs/AddPlaceDialog'
 import AddNewEventDialog from './components/dialogs/AddEventDialog'
 import AddMediaDialog from './components/dialogs/AddMediaDialog'
+import AboutDialog from './components/dialogs/AboutDialog'
 import AllMediaDialog from './components/dialogs/AllMediaDialog'
 import AllEventsDialog from './components/dialogs/AllEventsDialog'
 import CreditsDialog from './components/dialogs/CreditsDialog'
@@ -50,6 +51,8 @@ export default class Menu extends Component {
             <AddMediaDialog places={this.props.places} />
             <AddNewPlaceDialog places={this.props.places} />
             <AddNewEventDialog places={this.props.places} />
+            <br />
+            <AboutDialog {...this.props} />
             <br />
             <br />
             <CreditsDialog />

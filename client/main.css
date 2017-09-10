@@ -57,6 +57,7 @@ header {
     right: 0px;
     bottom:14px;
     overflow: hidden;
+
 }
 
 #legend-content {
@@ -106,7 +107,8 @@ header {
     margin-right: 5px;
     margin-left: 5px;
     align-self: flex-end;
-
+    justify-content: flex-end;
+    align-items: flex-end;
 }
 .legend-tooltip {
     position: absolute;
@@ -195,4 +197,30 @@ header {
     line-height: 32px;
     vertical-align: middle;
     margin-right: 5px
+}
+
+#mapButtons {
+    position: absolute;
+    top: 10px;
+    right: 60px;
+}
+
+@media (max-width: 600px) {
+    #footer-background {
+        display: none;
+    }
+
+    .bottomButton,
+    .bottomButton > div {
+        max-width: 90px;
+        bottom: auto;
+        top: 170px;
+        left: 20px;
+    }
+    #mapButtons {
+        position: absolute;
+        top: auto;
+        bottom: 30px;
+        right: 30px;
+    }
 }
