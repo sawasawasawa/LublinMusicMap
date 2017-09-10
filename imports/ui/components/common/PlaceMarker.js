@@ -22,7 +22,7 @@ export default class PlaceMarker extends Component {
   getIconForMedia (record) {
     const iconMap = {
       youtubeVideo: '/img/youtube.svg',
-      mp3: '/img/resize/record.png'
+      mp3: '/img/record.png'
     }
     return iconMap[record.mediaType] || iconMap['mp3']
   }
@@ -33,9 +33,11 @@ export default class PlaceMarker extends Component {
       club: '/img/disco-ball.svg',
       outdoorHall: '/img/outdoorHall.png',
       pub: '/img/cafe.png',
-      tv: '/img/resize/tv.png',
-      radio: '/img/resize/radio.png',
-      culture: '/img/resize/culture.png'
+      tv: '/img/tv.png',
+      radio: '/img/radio.png',
+      theatre: '/img/theatre.png',
+      philharmonia: '/img/piano.png',
+      culture: '/img/culture.png'
     }
     return iconMap[place.type] || iconMap['culture']
   }

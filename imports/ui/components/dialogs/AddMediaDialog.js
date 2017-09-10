@@ -9,6 +9,7 @@ import MenuItem from 'material-ui/MenuItem'
 import {Events} from '../../../api/events.js'
 import TextInput from '../common/TextInput'
 import PlaceSelect from '../common/PlaceSelect'
+import { normalizeStringToURLPath } from "../../../helpers";
 
 export default class AddMediaDialog extends React.Component {
   state = {
@@ -41,14 +42,13 @@ export default class AddMediaDialog extends React.Component {
       mediaObject.videoId = this.state.videoLink.replace(/http.*watch.*=/gi, '')
     }
 
-    Meteor.call('addMedia', mediaObject)
-
     if (this.state.mediaType === 'mp3' && this.state.mp3 && this.state.uploadedFile) {
-      mediaObject.mp3 = this.state.mp3
-      mediaObject.filename = this.state.filename
-      Meteor.call('uploadMp3File', this.state.mp3.name, this.state.uploadedFile)
+      const normalizedFileName = normalizeStringToURLPath(this.state.mp3.name)
+      mediaObject.filename = normalizedFileName
+      Meteor.call('uploadMp3File', normalizedFileName, this.state.uploadedFile)
     }
 
+    Meteor.call('addMedia', mediaObject)
     this.handleClose()
     // TODO get rid of this reload by utilizing createContainer properly
     // location.reload()

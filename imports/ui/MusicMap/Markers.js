@@ -9,10 +9,10 @@ export const Markers = (props) => {
       enableRetinaIcons
       gridSize={10}
       zoomOnClick={false}
-      imagePath='img/resize/cluster'
+      imagePath='/img/cluster'
       styles={[{
         textColor: '#313131',
-        url: 'img/resize/cluster1.png',
+        url: '/img/cluster1.png',
         height: 50,
         width: 50
       }]}

@@ -19,14 +19,15 @@ export const Mp3Dialog = (props) => {
     repositionOnUpdate={false}
     autoScrollBodyContent
   >
-    <strong>Opis:&nbsp;</strong>
-    <span>{props.media.description || 'brak'}</span>
-    <br />
-    <br />
-
     <audio controls>
       <source src={`/images/tmp/${props.media.filename}`} type='audio/mp3' />
           Your browser does not support the audio element.
     </audio>
+
+    <br />
+    <br />
+
+    <strong>Opis:&nbsp;</strong>
+    <span>{props.media.description || 'brak'}</span>
   </Dialog>
 }

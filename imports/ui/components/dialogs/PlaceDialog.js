@@ -62,6 +62,6 @@ const SocialIcons = (props) => {
 
 const PlaceIcon = (props) => {
   return <a href={props.href} target='_blank' style={{marginLeft: 10}}>
-    <img src={`/img/resize/${props.icon}.png`} width='32px' />
+    <img src={`/img/${props.icon}.png`} width='32px' />
   </a>
 }
