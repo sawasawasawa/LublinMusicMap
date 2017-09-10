@@ -3,15 +3,19 @@ import LegendElement from './LegendElement'
 import {getLegendElements} from '../../../helpers'
 
 export class Legend extends Component {
-  render () {
-    const legendElements = getLegendElements(this.props.markerType).map((legendElement) => {
-      return <LegendElement image={legendElement.icon} name={legendElement.name} />
+  prepareLegendElements = () => {
+    const legendElements = getLegendElements(this.props.markerType)
+    const legendElementComponents = legendElements.map((legendElement) => {
+      return <LegendElement key={legendElement.name} image={legendElement.icon} name={legendElement.name} />
     })
-    const elementsToDisplay = insertBreaks(legendElements)
+    return insertBreaks(legendElementComponents)
+  }
+
+  render () {
     return (
       <div id='legend'>
         <div id='legend-content'>
-          {elementsToDisplay}
+          {this.prepareLegendElements()}
           <h5 className='legend-title'>Legenda</h5>
         </div>
       </div>
@@ -28,7 +32,7 @@ function insertBreaks (legendElements) {
   legendElements.forEach((element, index) => {
     elementsWithBreaks.push(element)
     if (breakLines.includes(index)) {
-      elementsWithBreaks.push(<div style={{width: '100%', height: '0px', margin: '0px'}} />)
+      elementsWithBreaks.push(<div style={{width: '100%', height: '0px', margin: '0px'}} key={Math.round(Math.random()*1000)}/>)
     }
   })
   return elementsWithBreaks
