@@ -1,24 +1,35 @@
 import React, {Component} from 'react'
-import Paper from 'material-ui/Paper'
+import LegendElement from './LegendElement'
+import {getLegendElements} from "../../../helpers";
 
-export class LegendElement extends Component {
+export class Legend extends Component {
   render () {
-    const style = {
-      height: 32,
-      width: 32,
-      padding: 2,
-      textAlign: 'center',
-      color: 'white',
-      boxShadow: 'black 0px 0px 0px 1px,white 0px 0px 0px 2px, rgba(0, 0, 0, 0.3) 0px 19px 60px, rgba(0, 0, 0, 0.22) 0px 15px 20px'
-    }
-
+    const legendElements = getLegendElements(this.props.markerType).map((legendElement)=>{
+      return <LegendElement image={legendElement.icon} name={legendElement.name} />
+    })
+    const elementsToDisplay =insertBreaks(legendElements)
     return (
-      <div style={{zIndex: 2, color: 'white', marginRight: '5px'}}>
-        <Paper style={style} zDepth={5} circle ><img src={this.props.image} width='24px' /></Paper>
-        <div style={{marginTop: '15px', marginRight: '8px', marginLeft: '5px'}}>{this.props.name}</div>
+      <div id='legend' onMouseEnter={() => { $('#openMenuButton').click() }} onMouseLeave={() => {}}>
+        <div id='legend-content'>
+          {elementsToDisplay}
+          <h5 className='legend-title'>Legenda</h5>
+        </div>
+
       </div>
     )
   }
 }
 
-export default LegendElement
+function insertBreaks (legendElements) {
+  let elementsWithBreaks = []
+  const breakLines = [ 0, 3, 7 ]
+  legendElements.forEach((element, index)=> {
+    elementsWithBreaks.push(element)
+    if (breakLines.includes(index)) {
+      elementsWithBreaks.push(<div style={{width: '100%', height: '0px', margin: '0px'}} />)
+    }
+  })
+  return elementsWithBreaks
+}
+
+export default Legend

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import Paper from 'material-ui/Paper'
-import LegendElement from './components/common/LegendElement'
+import Legend from './components/Legend'
 
 export class Header extends Component {
   render () {
@@ -32,17 +32,8 @@ export class Header extends Component {
           <div >
             <Paper id={'header-background'} zDepth={5} style={{ backgroundColor: '#313131' }} />
             <div id='footer-background' style={footerBackgroundStyle}>
-              <Paper id='legend-paper' zDepth={2} style={legendPaperStyle}>
-                <div id='legend' style={{ backgroundColor: '#313131' }} onMouseEnter={() => { $('#openMenuButton').click() }} onMouseLeave={() => {}}>
-                  <div id='legend-content'>
-                    <h5 className='legend-title'>Legenda</h5>
-                    <LegendElement image='/img/disco-ball.svg' name='Klub' />
-                    <LegendElement image='/img/pint.svg' name='Pub' />
-                    <br />
-                    <LegendElement image='/img/outdoorHall.png' name='Świeże powietrze' />
-                  </div>
-                </div>
-              </Paper>
+              <Paper id='legend-paper' zDepth={2} style={legendPaperStyle} />
+              <Legend markerType = {this.props.markerType} />
             </div>
           </div>
         </div>

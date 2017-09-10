@@ -43,7 +43,7 @@ export class AppContent extends Component {
     return <MuiThemeProvider>
       {this.props.dataReady ? (
         <div className='container'>
-          <Header />
+          <Header markerType={this.state.markerType} />
           <Menu {...this.props} markerType={this.state.markerType} />
           <MusicMap {...this.props}
             markers={this.state.markers}
