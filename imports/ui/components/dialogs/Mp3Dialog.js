@@ -20,7 +20,7 @@ export const Mp3Dialog = (props) => {
     autoScrollBodyContent
   >
     <audio controls>
-      <source src={`/images/tmp/${props.media.filename}`} type='audio/mp3' />
+      <source src={`/mp3/tmp/${props.media.filename}`} type='audio/mp3' />
           Your browser does not support the audio element.
     </audio>
 
