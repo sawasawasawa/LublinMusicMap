@@ -135,7 +135,6 @@ export default class AddMediaDialog extends React.Component {
             maxHeight={400}
             style={{width: '100%'}}
             disabled={false}
-            ORIGdisabled={!this.state.placeId}
           >
             {mediaTypes}
           </SelectField>

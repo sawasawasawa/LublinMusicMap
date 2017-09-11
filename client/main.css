@@ -165,13 +165,15 @@ header {
 .gm-style-iw {
     top: 0px !important;
 }
-
+h3,
 .infowindow-title, .infowindow-subtitle {
-    /*text-decoration: underline;*/
-    font-family: 'Rubik Mono One';
-    /*text-align: center;*/
-    text-transform:  uppercase;
-    font-weight: 900;
+    font-family: 'Rubik Mono One' !important;
+    text-transform: uppercase !important;
+    font-weight: 900 !important;
+    color: rgba(0, 0, 0, 0.6) !important;
+}
+h3 {
+    font-size: 0.9em;
 }
 
 

@@ -19,9 +19,9 @@ export default class TextInput extends React.Component {
         multiLine={this.props.multiLine}
         id={this.props.inputId}
         floatingLabelText={this.props.inputLabel}
+        onChange={this.props.onInputChange}
         floatingLabelStyle={{...styles.floatingLabelStyle, multiLine: true}}
         floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
-        onChange={this.props.onInputChange}
         style={{width: '100%'}}
       />
     )

@@ -56,26 +56,26 @@ export default class AddNewPlaceModal extends React.Component {
 
   render () {
     const venueTypes = [
-      <MenuItem key={1} value={'Klub'} primaryText={'Klub'} />,
-      <MenuItem key={2} value={'Pub'} primaryText={'Pub'} />,
-      <MenuItem key={3} value={'Sala koncertowa'} primaryText={'Sala koncertowa'} />,
-      <MenuItem key={4} value={'Inne'} primaryText={'Inne'} />,
-      <MenuItem key={5} value={'Dom kultury'} primaryText={'Dom kultury'} />,
-      <MenuItem key={6} value={'Centrum kultury'} primaryText={'Centrum kultury'} />,
-      <MenuItem key={7} value={'Filharmonia'} primaryText={'Filharmonia'} />,
-      <MenuItem key={8} value={'Radio'} primaryText={'Radio'} />,
-      <MenuItem key={9} value={'Telewizja'} primaryText={'Telewizja'} />
+      <MenuItem key={1} value={'Klub'} primaryText={'Klub'}/>,
+      <MenuItem key={2} value={'Pub'} primaryText={'Pub'}/>,
+      <MenuItem key={3} value={'Sala koncertowa'} primaryText={'Sala koncertowa'}/>,
+      <MenuItem key={4} value={'Inne'} primaryText={'Inne'}/>,
+      <MenuItem key={5} value={'Dom kultury'} primaryText={'Dom kultury'}/>,
+      <MenuItem key={6} value={'Centrum kultury'} primaryText={'Centrum kultury'}/>,
+      <MenuItem key={7} value={'Filharmonia'} primaryText={'Filharmonia'}/>,
+      <MenuItem key={8} value={'Radio'} primaryText={'Radio'}/>,
+      <MenuItem key={9} value={'Telewizja'} primaryText={'Telewizja'}/>
     ]
     const actions = [
-      <FlatButton label='Anuluj' primary onTouchTap={this.handleClose} />,
+      <FlatButton label='Anuluj' primary onTouchTap={this.handleClose}/>,
       <FlatButton label='Dodaj miejsce' primary onTouchTap={this.addPlace}
-        disabled={!((this.state.address || this.state.position) && this.state.name)}
+                  disabled={!(this.state.position && this.state.name)}
       />
     ]
 
     return (
       <div>
-        <RaisedButton label='Dodaj miejsce' onTouchTap={this.handleOpen} />
+        <RaisedButton label='Dodaj miejsce' onTouchTap={this.handleOpen}/>
         <Dialog
           title='Dodaj miejsce'
           actions={actions}
@@ -100,22 +100,26 @@ export default class AddNewPlaceModal extends React.Component {
             componentRestrictions={{country: 'pl'}}
             bounds={searchBounds}
           />
-          <TextInput inputId='name_input' inputLabel='Nazwa' onChange={this.onInputChange} /><br />
+          <TextInput inputId='name_input'
+            inputLabel='Nazwa'
+            onInputChange={this.onInputChange}
+            disabled={!(this.state.position)}
+          />
           <SelectField
             value={this.state.type}
             onChange={this.handleVenueTypeChange}
             floatingLabelText='Rodzaj lokalu'
             floatingLabelStyle={{color: orange500}}
             maxHeight={400}
-            disabled={!(this.state.position)}
+            disabled={!(this.state.position && this.state.name)}
           >
-            { venueTypes }
+            {venueTypes}
           </SelectField>
-          <br />
-          <TextInput inputId='description_input' inputLabel='Opis' onChange={this.onInputChange} multiLine />
-          <TextInput inputId='www_input' inputLabel='WWW' onChange={this.onInputChange} />
-          <TextInput inputId='fb_input' inputLabel='Facebook' onChange={this.onInputChange} />
-          <TextInput inputId='instagram_input' inputLabel='Instagram' onChange={this.onInputChange} />
+          <br/>
+          <TextInput inputId='description_input' inputLabel='Opis' onChange={this.onInputChange} multiLine disabled={!(this.state.position && this.state.name)}/>
+          <TextInput inputId='www_input' inputLabel='WWW' onChange={this.onInputChange} disabled={!(this.state.position && this.state.name)}/>
+          <TextInput inputId='fb_input' inputLabel='Facebook' onChange={this.onInputChange} disabled={!(this.state.position && this.state.name)}/>
+          <TextInput inputId='instagram_input' inputLabel='Instagram' onChange={this.onInputChange} disabled={!(this.state.position && this.state.name)}/>
         </Dialog>
       </div>
     )

@@ -107,7 +107,9 @@ export default class MusicMap extends Component {
       lat: cluster.markers_[0].position.lat(),
       lng: cluster.markers_[0].position.lng()
     }
+    const center = this.getNewCenter(position)
     this.setState({
+      center,
       overlay: {
         position,
         open: true,
