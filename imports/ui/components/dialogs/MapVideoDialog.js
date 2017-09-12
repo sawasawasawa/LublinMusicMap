@@ -27,7 +27,7 @@ export const MapVideoDialog = (props) => {
       open={props.open}
       titleStyle={{display: 'none'}}
       onRequestClose={props.handleClose}
-      style={{zIndex: 10, paddingTop: '0px !important', top: '-156px'}}
+      style={{zIndex: 10, paddingTop: '0px !important'}}
       repositionOnUpdate={false}
       autoScrollBodyContent
     >

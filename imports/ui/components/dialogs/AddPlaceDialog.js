@@ -67,7 +67,7 @@ export default class AddNewPlaceModal extends React.Component {
       <MenuItem key={9} value={'Telewizja'} primaryText={'Telewizja'}/>
     ]
     const actions = [
-      <FlatButton label='Anuluj' primary onTouchTap={this.handleClose}/>,
+      <FlatButton label='Anuluj' primary onTouchTap={this.handleClose} />,
       <FlatButton label='Dodaj miejsce' primary onTouchTap={this.addPlace}
                   disabled={!(this.state.position && this.state.name)}
       />
@@ -88,13 +88,15 @@ export default class AddNewPlaceModal extends React.Component {
           <Autocomplete
             style={{width: '100%'}}
             onPlaceSelected={(place) => {
-              this.setState({
-                place,
-                position: {
-                  lat: place.geometry.location.lat(),
-                  lng: place.geometry.location.lng()
-                }
-              })
+              if (place.geometry){
+                this.setState({
+                  place,
+                  position: {
+                    lat: place.geometry.location.lat(),
+                    lng: place.geometry.location.lng()
+                  }
+                })
+              }
             }}
             types={['address']} // TODO needed?
             componentRestrictions={{country: 'pl'}}

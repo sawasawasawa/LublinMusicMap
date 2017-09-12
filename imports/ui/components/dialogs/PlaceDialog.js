@@ -16,7 +16,8 @@ export const PlaceDialog = (props) => {
     actions={actions}
     open={props.open}
     onRequestClose={() => props.handleClose()}
-    style={{zIndex: 10, paddingTop: '0px !important', top: '-126px'}}
+    style={{zIndex: 10, paddingTop: '0px !important'}}
+    titleStyle={{display: 'none'}}
     repositionOnUpdate={false}
     autoScrollBodyContent
   >

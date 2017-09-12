@@ -216,8 +216,8 @@ h3 {
     .bottomButton > div {
         max-width: 90px;
         bottom: auto;
-        top: 170px;
-        left: 20px;
+        bottom: 30px;
+        left: 30px;
     }
     #mapButtons {
         position: absolute;

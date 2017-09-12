@@ -39,7 +39,7 @@ export default class AddMediaDialog extends React.Component {
 
     if (this.state.mediaType === 'youtubeVideo') {
       mediaObject.videoLink = this.state.videoLink
-      mediaObject.videoId = this.state.videoLink.replace(/http.*watch.*=/gi, '')
+      mediaObject.youtubeId = this.state.videoLink.replace(/http.*watch.*=/gi, '')
     }
 
     if (this.state.mediaType === 'mp3' && this.state.mp3 && this.state.uploadedFile) {

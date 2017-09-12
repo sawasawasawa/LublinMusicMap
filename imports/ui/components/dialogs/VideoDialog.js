@@ -37,14 +37,16 @@ export default class VideoDialog extends React.Component {
         <h5 label={video.name} onTouchTap={this.handleOpen}>{ video.name }</h5>
         <Dialog
           title={video.name}
+          titleStyle={{display: 'none'}}
+          titleStyle={{display: 'none'}}
           actions={actions}
           open={this.state.open}
           onRequestClose={this.handleClose}
-          style={{zIndex: 10, paddingTop: '0px !important', top: '-156px'}}
+          style={{zIndex: 10, paddingTop: '0px !important'}}
           repositionOnUpdate={false}
           autoScrollBodyContent
         >
-          <h1>{video.name}</h1>
+          <h4 className='infowindow-title'>{video.name}</h4>
           <YouTube key={video._id} videoId={video.youtubeId} opts={opts} />
         </Dialog>
       </div>
