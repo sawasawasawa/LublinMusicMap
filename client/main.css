@@ -69,6 +69,7 @@ header {
     flex-wrap: wrap ;
     justify-content: flex-end;
     align-items: flex-end;
+    bottom: 10px;
 }
 
 #legend {
@@ -80,10 +81,9 @@ header {
     transition: 0.2s all ease-in-out;
     width: 100%;
     height: 100%;
-    bottom:0px;
 }
 .legend-title {
-    width:100%;
+    /*width:100%;*/
     padding-right: 30px;
     margin: 5px 5px 5px 0px;
     font-family: "Rubik Mono One";
@@ -91,6 +91,9 @@ header {
     font-size: 1.2em;
     text-decoration: underline;
     color: #EE3858;
+    position: absolute;
+    bottom: -3px;
+    left: 60px;
 }
 #legend div span {
     margin-left:10px;
@@ -215,14 +218,17 @@ h3 {
     .bottomButton,
     .bottomButton > div {
         max-width: 90px;
-        bottom: auto;
-        bottom: 30px;
-        left: 30px;
+        bottom: 25px;
+        left: 10px;
     }
     #mapButtons {
-        position: absolute;
+        position: fixed;
         top: auto;
-        bottom: 30px;
-        right: 30px;
+        bottom: 25px;
+        right: 10px;
+    }
+    #header-background {
+        transform: rotateZ(60deg);
+        left: -120px;
     }
 }

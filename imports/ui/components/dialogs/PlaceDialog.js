@@ -1,48 +1,63 @@
-import React from 'react'
+import React, { Component} from 'react'
+import ReactDOM from 'react-dom'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import EventDialog from '../dialogs/EventDialog'
 
-export const PlaceDialog = (props) => {
-  const actions = [
-    <FlatButton
-      label='Zamknij'
-      primary
-      onTouchTap={() => props.handleClose()}
-    />
-  ]
-  return <Dialog
-    title={props.name}
-    actions={actions}
-    open={props.open}
-    onRequestClose={() => props.handleClose()}
-    style={{zIndex: 10, paddingTop: '0px !important'}}
-    titleStyle={{display: 'none'}}
-    repositionOnUpdate={false}
-    autoScrollBodyContent
-  >
+export class PlaceDialog extends Component {
+  onImgLoaded = () => {
+    setTimeout(() => {
+      console.log('_____ eloo');
+      // console.log("_______ this", this);
+      // console.log("_______ this", ReactDOM.findDOMNode(this.dialog).getBoundingClientRect());
+      // console.log("_______ this.forceUpdate", this.forceUpdate);
+      // console.log("_______ this.forceUpdate()", this.forceUpdate());
+      // this.forceUpdate()
+    }, 1000)
+  }
 
-    <div style={{maxHeight: '550px', marginLeft: '10px'}}>
-      <h4 className='infowindow-title'>{props.name}</h4>
-      <img src={props.photo} style={{maxHeight: '300px', maxWidth: '500px', margin: '20px auto', display: 'block'}} />
-      <div style={{width: '100%', textAlign: 'right'}}>
-        <SocialIcons place={{...props}} />
+  render() {
+// export const PlaceDialog = (props) => {
+    const forceupdate = () => this.forceUpdate()
+    const actions = [
+      <FlatButton
+        label='Zamknij'
+        primary
+        onTouchTap={() => this.props.handleClose()}
+      />
+    ]
+    return <Dialog refs = {(dialog)=>this.dialog}
+      title={this.props.name}
+      actions={actions}
+      open={this.props.open}
+      onRequestClose={() => this.props.handleClose()}
+      titleStyle={{display: 'none'}}
+      repositionOnUpdate={true}
+      autoScrollBodyContent={true}
+    >
+
+      <div style={{height: '550px', marginLeft: '10px'}}>
+        <h4 className='infowindow-title'>{this.props.name}</h4>
+        <img src={this.props.photo} style={{maxHeight: '300px', maxWidth: '500px', margin: '20px auto', display: 'block'}}
+             onLoad={this.onImgLoaded}/>
+        <div style={{width: '100%', textAlign: 'right'}}>
+          <SocialIcons place={{...this.props}}/>
+        </div>
+        <p>{this.props.description}</p>
+        <h5 className='infowindow-subtitle'>Wydarzenia:</h5>
+        {this.props.eventsAtPlace.length > 0
+          ? this.props.eventsAtPlace.map((eventObject, index) => {
+            return <EventDialog key={index}
+                                eventObject={eventObject}
+                                eventMedia={this.props.mediaAtPlace}
+            />
+          })
+          : <span>W tym miejscu nie dodano jeszcze żadnych wydarzeń</span>}
       </div>
-      <p>{props.description}</p>
-      <h5 className='infowindow-subtitle'>Wydarzenia:</h5>
-      {props.eventsAtPlace.length > 0
-        ? props.eventsAtPlace.map((eventObject, index) => {
-          return <EventDialog key={index}
-            eventObject={eventObject}
-            eventMedia={props.mediaAtPlace}
-          />
-        })
-        : <span>W tym miejscu nie dodano jeszcze żadnych wydarzeń</span>}
-    </div>
 
-  </Dialog>
+    </Dialog>
+  }
 }
-
 const SocialIcons = (props) => {
   const media = ['insta', 'www', 'fb', 'youtube']
   const iconsToDisplay = media.filter((media) => {

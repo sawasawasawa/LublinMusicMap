@@ -38,7 +38,6 @@ export default class VideoDialog extends React.Component {
         <Dialog
           title={video.name}
           titleStyle={{display: 'none'}}
-          titleStyle={{display: 'none'}}
           actions={actions}
           open={this.state.open}
           onRequestClose={this.handleClose}
@@ -46,8 +45,10 @@ export default class VideoDialog extends React.Component {
           repositionOnUpdate={false}
           autoScrollBodyContent
         >
-          <h4 className='infowindow-title'>{video.name}</h4>
-          <YouTube key={video._id} videoId={video.youtubeId} opts={opts} />
+          <div style={{height: '420px', marginLeft: '10px'}}>
+            <h4 className='infowindow-title'>{video.name}</h4>
+            <YouTube key={video._id} videoId={video.youtubeId} opts={opts} />
+          </div>
         </Dialog>
       </div>
     ) : null

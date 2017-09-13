@@ -24,9 +24,18 @@ export default class Menu extends Component {
   }
 
   hideMenu = () => {
+    const rotation = this.initialRotation()
     this.setState({open: !this.state.open})
-    $('#header-background').css({ transform: 'rotateZ(45deg)' })
-    $('#legend-paper').css({ transform: 'rotateZ(45deg)' })
+    $('#header-background').css({ transform: `rotateZ(${rotation}deg)` })
+    $('#legend-paper').css({ transform: `rotateZ(${rotation}deg)` })
+  }
+
+  initialRotation() {
+    return window.innerWidth > 600 ? 45 : 60
+  }
+
+  showLegend = () => {
+    return window.innerWidth < 600
   }
 
   render () {
@@ -45,6 +54,11 @@ export default class Menu extends Component {
             boxShadow: 0
           }}>
           <div id='menu--items'>
+            {this.showLegend()
+              ? <AllEventsDialog {...this.props} />
+              : null
+            }
+            <br />
             <AllEventsDialog {...this.props} />
             <AllMediaDialog {...this.props} />
             <br />

@@ -28,7 +28,7 @@ function insertBreaks (legendElements) {
     return legendElements
   }
   let elementsWithBreaks = []
-  const breakLines = [0, 3, 7]
+  const breakLines = [0, 2, 5]
   legendElements.forEach((element, index) => {
     elementsWithBreaks.push(element)
     if (breakLines.includes(index)) {

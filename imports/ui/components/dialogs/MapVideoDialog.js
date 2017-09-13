@@ -27,15 +27,17 @@ export const MapVideoDialog = (props) => {
       open={props.open}
       titleStyle={{display: 'none'}}
       onRequestClose={props.handleClose}
-      style={{zIndex: 10, paddingTop: '0px !important'}}
-      repositionOnUpdate={false}
+      style={{zIndex: 10, paddingTop: '0px !important', height: '550px'}}
+      repositionOnUpdate={true}
       autoScrollBodyContent
     >
-      <h4 className='infowindow-title'>{video.name}</h4>
-      {video.youtubeId
-        ? <YouTube key={video._id} videoId={video.youtubeId} opts={opts} />
-        : 'Coś poszło nie tak...'
-      }
+      <div style={{height: '420px', marginLeft: '10px'}}>
+        <h4 className='infowindow-title'>{video.name}</h4>
+        {video.youtubeId
+          ? <YouTube key={video._id} videoId={video.youtubeId} opts={opts}/>
+          : 'Coś poszło nie tak...'
+        }
+      </div>
     </Dialog>
-  ) : null
+) : null
 }
