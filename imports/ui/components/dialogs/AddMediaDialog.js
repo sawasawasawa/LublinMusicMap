@@ -48,6 +48,10 @@ export default class AddMediaDialog extends React.Component {
       Meteor.call('uploadMp3File', normalizedFileName, this.state.uploadedFile)
     }
 
+    if (this.state.mediaType === 'bandcamp') {
+      mediaObject.bandcampIframe = this.state.bandcamp
+    }
+
     Meteor.call('addMedia', mediaObject)
     this.handleClose()
     // TODO get rid of this reload by utilizing createContainer properly
@@ -83,7 +87,8 @@ export default class AddMediaDialog extends React.Component {
     const mediaTypes = [
       <MenuItem key={1} value={'youtubeVideo'} primaryText={'Youtube - link do video'} />,
       <MenuItem key={2} value={'mp3'} primaryText={'Prześlij mp3'} />,
-      <MenuItem key={3} value={'picture'} primaryText={'Prześlij zdjęcie'} disabled />
+      <MenuItem key={3} value={'picture'} primaryText={'Prześlij zdjęcie'} disabled />,
+      <MenuItem key={4} value={'bandcamp'} primaryText={'Embed bandcamp iframe'} />
     ]
 
     const actions = [
@@ -95,7 +100,7 @@ export default class AddMediaDialog extends React.Component {
       <FlatButton
         label='Dodaj media'
         primary
-        disabled={!(this.state.placeId && (this.state.videoLink || this.state.mp3))}
+        disabled={!(this.state.placeId && (this.state.videoLink || this.state.mp3 || this.state.bandcamp))}
         onTouchTap={this.addMedia}
       />
     ]
@@ -168,6 +173,15 @@ export default class AddMediaDialog extends React.Component {
             this.state.mediaType === 'youtubeVideo'
               ? <TextInput inputId='videoLink_input'
                 inputLabel='YouTube video link'
+                onInputChange={this.onInputChange}
+                disabled={!this.state.placeId}
+              />
+              : null
+          }
+          {
+            this.state.mediaType === 'bandcamp'
+              ? <TextInput inputId='bandcamp_input'
+                inputLabel='Bandcamp iframe'
                 onInputChange={this.onInputChange}
                 disabled={!this.state.placeId}
               />

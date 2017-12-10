@@ -42,6 +42,9 @@ export function getLegendElements (markerType) {
         }, {
           icon: '/img/record.png',
           name: 'mp3'
+        }, {
+          icon: '/img/record.png',
+          name: 'bandcamp'
         }
       ]
     default:
