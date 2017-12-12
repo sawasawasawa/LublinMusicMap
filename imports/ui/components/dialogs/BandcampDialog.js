@@ -21,6 +21,9 @@ export const BandcampDialog = (props) => {
     autoScrollBodyContent
   >
     <div dangerouslySetInnerHTML={createMarkup()} />
+    <br />
+    <strong>Opis:&nbsp;</strong>
+    <span>{props.media.description || 'brak'}</span>
   </Dialog>
 }
 
