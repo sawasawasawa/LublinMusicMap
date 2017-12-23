@@ -20,7 +20,8 @@ export const Markers = (props) => {
         props.handleClusterClick(cluster)
       }}
     >
-      {props.markers ? props.markers.map((marker, index) => {
+      {/*TODO get rid of filter(m=>!!m)*/}
+      {props.markers ? props.markers.filter(m=>!!m).map((marker, index) => {
         return <PlaceMarker key={index}
           marker={marker}
           onMarkerClick={() => props.onMarkerClick(marker)}

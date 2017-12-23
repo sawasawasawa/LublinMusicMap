@@ -2,7 +2,7 @@ import React from 'react'
 import { Media } from '../../../api/media'
 import 'react-table/react-table.css'
 import EventDialog from './EventDialog'
-import VideoDialog from './VideoDialog'
+import RecordDialog from './RecordDialog'
 import TableDialog from '../common/TableDialog'
 
 export default class AllMediaDialog extends React.Component {
@@ -36,22 +36,23 @@ export default class AllMediaDialog extends React.Component {
     const columns = [{
       Header: 'Typ',
       accessor: 'mediaType',
-      Cell: (event, index) => (<img src='/img/youtube.svg' />),
+      Cell: (record, index) => { return record.original.mediaType === 'youtubeVideo'
+        ? <img src='/img/youtube.svg' />
+        : <img src='/img/record.png' width={32} height={32}/>
+      },
       maxWidth: 60
     }, {
       Header: 'Tytuł',
-      accessor: 'videoId',
-      Cell: (video, index) => (<VideoDialog key={index} video={video.original} />)
+      accessor: 'name',
+      Cell: (record, index) => (record.original.name)
     }, {
       Header: 'Miejsce',
       accessor: 'placeId',
       Cell: (place, index) => (<a key={index}>{this.getPlaceName(place.original.placeId)}</a>)
     }, {
-      Header: 'Wydarzenie',
+      Header: 'Opis',
       accessor: 'eventId',
-      Cell: (event, index) => event.original.eventId ? (<a key={index}>
-        <EventDialog key={index} eventObject={this.getEvent(event.original.eventId)} />
-      </a>) : null
+      Cell: (record, index) => record.original.description || '-'
     }]
 
     return (

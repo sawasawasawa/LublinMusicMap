@@ -20,8 +20,14 @@ export class AppContent extends Component {
   }
 
   getMediaMarkerPosition (marker) {
+    /* TODO fixit*/
     if (marker.placeId) {
-      return this.props.places.find((place) => { return place._id === marker.placeId }).position
+      const placeOfRecording = this.props.places.find((place) => {
+        if (place._id._str) {
+          return place._id._str === marker.placeId
+        }
+        return place._id === marker.placeId })
+      return placeOfRecording.position
     }
   }
 

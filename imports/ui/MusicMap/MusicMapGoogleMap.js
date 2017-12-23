@@ -64,7 +64,9 @@ const MusicMapGoogleMap = withGoogleMap(props => {
       />
       <ClusteredMarkerOverlay
         {...props.overlay}
+        markerType={props.markerType}
         center={props.center}
+        handleClusterClose={() => props.handleClusterClose()}
         handleMarkerClick={(marker) => {
           props.onMarkerClick(marker)
         }}

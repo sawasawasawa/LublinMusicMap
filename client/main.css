@@ -186,11 +186,14 @@ h3 {
     margin: 0px
 }
 
+.overlay-list {
+    padding: 0 10px;
+    border: 1px solid #EE3858;
+}
 .overlay-list ul {
     margin: 0;
-    padding: 10px;
+    padding: 5px;
     list-style-type: none;
-    border: 1px solid #EE3858;
 }
 
 .overlay-list ul li {

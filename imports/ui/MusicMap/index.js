@@ -38,18 +38,23 @@ export default class MusicMap extends Component {
 
   prepareMarkers (markerType) {
     if (markerType === 'media') {
-      return this.props.media.map(this.addPosition)
+      // TODO: fixme
+      return this.props.media.map(this.addPosition).filter(a => !!a)
     } else {
       return this.props.places
     }
   }
 
   addPosition = (mediaFile) => {
-    return {
-      ...mediaFile,
-      position: this.props.places.find((place) => {
-        return mediaFile.placeId === place._id
-      }).position
+    const placeOfRecording = this.props.places.find((place) => {
+      return mediaFile.placeId === place._id
+    })
+    const position = placeOfRecording && placeOfRecording.position
+    if (position){
+      return {
+        ...mediaFile,
+        position
+      }
     }
   }
 
@@ -77,6 +82,7 @@ export default class MusicMap extends Component {
       overlay: undefined,
       modalContent: this.getModalData(targetMarker),
       markers: this.state.markers.map(marker => {
+        if (!marker || !targetMarker) {debugger}
         return {
           ...marker,
           showInfo: marker._id === targetMarker._id
@@ -114,6 +120,15 @@ export default class MusicMap extends Component {
         position,
         open: true,
         markers: this.addIdsToClusterMarkers(cluster.markers_)
+      }
+    })
+  }
+
+  handleClusterClose = () => {
+    this.hideMarkers()
+    this.setState({
+      overlay: {
+        open: false
       }
     })
   }
@@ -197,6 +212,7 @@ export default class MusicMap extends Component {
         overlay={this.state.overlay}
         onMarkerClick={this.handleMarkerClick}
         handleClusterClick={this.handleClusterClick}
+        handleClusterClose={this.handleClusterClose}
         onCloseClick={this.handleCloseClick}
         onMove={this.handleMove}
         handleMapModalClose={this.handleMapModalClose}

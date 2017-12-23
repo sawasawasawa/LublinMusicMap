@@ -29,7 +29,7 @@ export default class TableDialog extends React.Component {
       />
     ]
     return (
-      <div>
+      <div style={{padding: '0 !important'}}>
         <RaisedButton label={this.props.label} onTouchTap={this.handleOpen} />
         <Dialog
           title={this.props.label}
