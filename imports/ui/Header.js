@@ -34,7 +34,11 @@ export class Header extends Component {
             <Paper id={'header-background'} zDepth={5} style={{ backgroundColor: '#313131' }} />
             <div id='footer-background' style={footerBackgroundStyle}>
               <Paper id='legend-paper' zDepth={2} style={legendPaperStyle} />
-              <Legend markerType={this.props.markerType} />
+              <Legend
+                markerType={this.props.markerType}
+                markerFilter={this.props.markerFilter}
+                setMarkerFilter={this.props.setMarkerFilter}
+              />
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor'
 
-export const Places = new Mongo.Collection('places')
+export const Places = new Mongo.Collection('places', {idGeneration: 'MONGO'})
 
 if (Meteor.isServer) {
   Meteor.publish('places', function placesPublication () {

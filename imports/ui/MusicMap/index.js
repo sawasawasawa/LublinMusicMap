@@ -27,26 +27,40 @@ export default class MusicMap extends Component {
   handleMapModalClose = this.handleMapModalClose.bind(this);
 
   componentWillReceiveProps (nextProps) {
-    const changeMarkerView = nextProps.markerType !== this.state.markerType
-    if (changeMarkerView) {
+    const changeMarkerView = nextProps.markerType !== this.props.markerType
+    const changeFilter = nextProps.markerFilter !== this.props.markerFilter
+    if (changeMarkerView || changeFilter) {
       this.setState({
-        markers: this.prepareMarkers(nextProps.markerType),
-        markerType: nextProps.markerType
+        markers: this.prepareMarkers(nextProps.markerType, nextProps.markerFilter),
       })
     }
   }
 
-  prepareMarkers (markerType) {
+  prepareMarkers (markerType, markerFilter) {
     if (markerType === 'media') {
-      // TODO: fixme
-      return this.props.media.map(this.addPosition).filter(a => !!a)
+      return this.props.media
+        .map(this.addPosition)
+        // TODO: fixme - filtering undefineds
+        .filter(a => !!a)
     } else {
-      return this.props.places
+      if (markerFilter) {
+        return this.getFilteredMarkers(this.props.places, markerFilter)
+      } else {
+        return this.props.places
+      }
+
     }
+  }
+
+  getFilteredMarkers = (markers, filter) => {
+    return markers.filter(marker => marker.type === filter)
   }
 
   addPosition = (mediaFile) => {
     const placeOfRecording = this.props.places.find((place) => {
+      if (mediaFile.placeId._str) {
+        return mediaFile.placeId._str === place._id._str
+      }
       return mediaFile.placeId === place._id
     })
     const position = placeOfRecording && placeOfRecording.position
@@ -67,10 +81,18 @@ export default class MusicMap extends Component {
       return marker._id === targetMarker._id
     })
     modalData.eventsAtPlace = this.props.events
-      ? this.props.events.filter((e) => { return e.placeId === targetMarker._id })
+      ? this.props.events.filter((e) => {
+        if (e.placeId._str) {
+          return e.placeId._str === targetMarker._id._str
+        }
+      })
       : []
     modalData.mediaAtPlace = this.props.media
-      ? this.props.media.filter((e) => { return e.placeId === targetMarker._id })
+      ? this.props.media.filter((e) => {
+        if (!e.placeId._str) {
+          return e.placeId._str === targetMarker._id._str
+        }
+      })
       : []
     return modalData
   }

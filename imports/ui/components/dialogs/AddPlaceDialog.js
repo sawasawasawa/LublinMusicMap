@@ -56,15 +56,15 @@ export default class AddNewPlaceModal extends React.Component {
 
   render () {
     const venueTypes = [
-      <MenuItem key={1} value={'Klub'} primaryText={'Klub'}/>,
-      <MenuItem key={2} value={'Pub'} primaryText={'Pub'}/>,
-      <MenuItem key={3} value={'Sala koncertowa'} primaryText={'Sala koncertowa'}/>,
-      <MenuItem key={4} value={'Inne'} primaryText={'Inne'}/>,
-      <MenuItem key={5} value={'Dom kultury'} primaryText={'Dom kultury'}/>,
-      <MenuItem key={6} value={'Centrum kultury'} primaryText={'Centrum kultury'}/>,
-      <MenuItem key={7} value={'Filharmonia'} primaryText={'Filharmonia'}/>,
-      <MenuItem key={8} value={'Radio'} primaryText={'Radio'}/>,
-      <MenuItem key={9} value={'Telewizja'} primaryText={'Telewizja'}/>
+      <MenuItem key={1} value={'club'} primaryText={'Klub'}/>,
+      <MenuItem key={2} value={'pub'} primaryText={'Pub'}/>,
+      <MenuItem key={3} value={'concertHall'} primaryText={'Sala koncertowa'}/>,
+      <MenuItem key={4} value={'othe'} primaryText={'Inne'}/>,
+      <MenuItem key={5} value={'cultureHub'} primaryText={'Dom kultury'}/>,
+      <MenuItem key={6} value={'cultureHub'} primaryText={'Centrum kultury'}/>,
+      <MenuItem key={7} value={'philharmonia'} primaryText={'Filharmonia'}/>,
+      <MenuItem key={8} value={'radio'} primaryText={'Radio'}/>,
+      <MenuItem key={9} value={'tv'} primaryText={'Telewizja'}/>
     ]
     const actions = [
       <FlatButton label='Anuluj' primary onTouchTap={this.handleClose} />,

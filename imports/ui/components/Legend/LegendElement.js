@@ -4,6 +4,7 @@ import Paper from 'material-ui/Paper'
 export class LegendElement extends Component {
   render () {
     const style = {
+      opacity: this.props.dim ? 0.6 : 1,
       pointerEvents: 'all',
       height: 32,
       width: 32,
@@ -17,8 +18,11 @@ export class LegendElement extends Component {
       <div className='legend-element'
         onMouseOver={() => { this.setState({hover: true}) }}
         onMouseLeave={() => { this.setState({hover: false}) }}
+       onClick={()=>{
+         this.props.setMarkerFilter(this.props.type)
+       }}
       >
-        <Paper style={style} zDepth={5} circle ><img src={this.props.image} width='24px' /></Paper>
+        <Paper style={style} zDepth={5} circle ><img src={this.props.icon} width='24px' /></Paper>
         <div className='legend-tooltip'>{
           this.state && this.state.hover
             ? this.props.name

@@ -16,18 +16,20 @@ export class AppContent extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    this.setState({places: nextProps.places, media: nextProps.media, events: nextProps.events, markers: nextProps.places})
+    this.setState({places: nextProps.places, media: nextProps.media, events: nextProps.events, markers: nextProps.places, markerFilter: nextProps.markerFilter})
   }
 
   getMediaMarkerPosition (marker) {
     /* TODO fixit*/
     if (marker.placeId) {
       const placeOfRecording = this.props.places.find((place) => {
-        if (place._id._str) {
-          return place._id._str === marker.placeId
+        if (marker.placeId._str) {
+          return place._id._str === marker.placeId._str
         }
         return place._id === marker.placeId })
-      return placeOfRecording.position
+      return placeOfRecording ? placeOfRecording.position : undefined
+    } else {
+      console.log('_____ no place id for ', marker);
     }
   }
 
@@ -41,20 +43,30 @@ export class AppContent extends Component {
       })
       this.setState({markers: newMarkers, markerType: 'media'})
     } else {
-      this.setState({markers: this.props.places, markerType: 'places'})
+      this.setState({markers: this.state.markers, markerType: 'places', markerFilter: null})
     }
+  }
+
+  setMarkerFilter = (placeType) => {
+    console.log('_____ qwe');
+    this.setState({markerFilter: placeType })
   }
 
   render () {
     return <MuiThemeProvider>
       {this.props.dataReady ? (
         <div className='container'>
-          <Header markerType={this.state.markerType} />
+          <Header
+            markerType={this.state.markerType}
+            setMarkerFilter={this.setMarkerFilter}
+            markerFilter={this.state.markerFilter}
+          />
           <Menu {...this.props} markerType={this.state.markerType} />
           <MusicMap {...this.props}
             markers={this.state.markers}
             markerType={this.state.markerType}
             toggleMarkersFor={this.toggleMarkersFor}
+            markerFilter={this.state.markerFilter}
           />
         </div>
       ) : (

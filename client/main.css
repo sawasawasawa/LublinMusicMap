@@ -93,7 +93,7 @@ header {
     color: #EE3858;
     position: absolute;
     bottom: -3px;
-    left: 60px;
+    left: 45px;
 }
 #legend div span {
     margin-left:10px;
@@ -107,8 +107,7 @@ header {
 .legend-element {
     z-index: 2;
     color: white;
-    margin-right: 5px;
-    margin-left: 5px;
+    margin: 10px;
     align-self: flex-end;
     justify-content: flex-end;
     align-items: flex-end;

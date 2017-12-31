@@ -40,7 +40,7 @@ export default class EventDialog extends React.Component {
           actions={actions}
           open={this.state.open}
           onRequestClose={this.handleClose}
-          style={{zIndex: 10, paddingTop: '0px !important'}}
+          style={{zIndex: 11111, paddingTop: '0px !important'}}
           repositionOnUpdate={false}
           autoScrollBodyContent
         >

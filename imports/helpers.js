@@ -11,27 +11,35 @@ export function getLegendElements (markerType) {
     case 'places':
       return [{
         icon: '/img/disco-ball.svg',
+        type: 'club',
         name: 'Klub'
       }, {
         icon: '/img/outdoorHall.png',
+        type: 'outdoorHall',
         name: 'Świeże powietrze'
       }, {
         icon: '/img/cafe.png',
+        type: 'cafe',
         name: 'Pub/Kawiarnia'
       }, {
         icon: '/img/tv.png',
+        type: 'tv',
         name: 'Telewizja'
       }, {
         icon: '/img/radio.png',
+        type: 'radio',
         name: 'Radio'
       }, {
         icon: '/img/theatre.png',
+        type: 'theatre',
         name: 'Teatr'
       }, {
         icon: '/img/piano.png',
+        type: 'philharmonia',
         name: 'Filharmonia'
       }, {
         icon: '/img/culture.png',
+        type: 'centrum kultury',
         name: 'Ośrodek kultury'
       }]
     case 'media':
@@ -41,9 +49,11 @@ export function getLegendElements (markerType) {
           name: 'youtubeVideo'
         }, {
           icon: '/img/record.png',
+          type: '',
           name: 'mp3'
         }, {
           icon: '/img/record.png',
+          type: '',
           name: 'bandcamp'
         }
       ]
